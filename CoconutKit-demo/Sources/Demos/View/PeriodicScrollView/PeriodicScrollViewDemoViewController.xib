@@ -43,6 +43,10 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="795218803"/>
 						<string key="NSReuseIdentifierKey">_NS:206</string>
+						<object class="NSColor" key="IBUIBackgroundColor" id="460560567">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MCAxIDAAA</bytes>
+						</object>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -55,6 +59,7 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="115205333"/>
 						<string key="NSReuseIdentifierKey">_NS:206</string>
+						<reference key="IBUIBackgroundColor" ref="460560567"/>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -67,6 +72,7 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="888095909"/>
 						<string key="NSReuseIdentifierKey">_NS:206</string>
+						<reference key="IBUIBackgroundColor" ref="460560567"/>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -79,6 +85,7 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:206</string>
+						<reference key="IBUIBackgroundColor" ref="460560567"/>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>

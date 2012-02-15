@@ -19,7 +19,6 @@ typedef enum {
 @interface HLSPeriodicScrollView : UIScrollView <UIScrollViewDelegate> {
 @private
     HLSScrollViewPeriodicity m_periodicity;
-    UIView *m_mainContentView;
 }
 
 @property (nonatomic, assign) HLSScrollViewPeriodicity periodicity;

@@ -59,12 +59,21 @@
     [super viewWillAppear:animated];
     
     self.noneScrollView.periodicity = HLSScrollViewPeriodicityNone;
+    UIView *view1 = [[[UIView alloc] initWithFrame:CGRectMake(40.f, 40.f, 60.f, 60.f)] autorelease];
+    view1.backgroundColor = [UIColor redColor];
+    [self.noneScrollView addSubview:view1];
     self.noneScrollView.contentSize = self.noneScrollView.frame.size;
     
     self.verticalScrollView.periodicity = HLSScrollViewPeriodicityVertical;
+    UIView *view2 = [[[UIView alloc] initWithFrame:CGRectMake(40.f, 40.f, 60.f, 60.f)] autorelease];
+    view2.backgroundColor = [UIColor redColor];
+    [self.verticalScrollView addSubview:view2];
     self.verticalScrollView.contentSize = CGSizeMake(CGRectGetWidth(self.verticalScrollView.frame), 1000.f);
     
     self.horizontalScrollView.periodicity = HLSScrollViewPeriodicityHorizontal;
+    UIView *view3 = [[[UIView alloc] initWithFrame:CGRectMake(40.f, 40.f, 60.f, 60.f)] autorelease];
+    view3.backgroundColor = [UIColor redColor];
+    [self.horizontalScrollView addSubview:view3];
     self.horizontalScrollView.contentSize = CGSizeMake(800.f, CGRectGetHeight(self.horizontalScrollView.frame));
     
     self.bothScrollView.periodicity = HLSScrollViewPeriodicityBoth;
