@@ -17,23 +17,44 @@
 #import "UIControl+HLSExclusiveTouch.h"
 
 /**
- * Enable preloading of some objects (currently only UIWebView) when the application is started. This 
- * incurs a memory overhead you might not want to pay if you do not need those features (most notably 
- * if your application does not contain any UIWebView)
+ * Enable UIWebView preloading when the application is started. This incurs a memory overhead you might not want to pay 
+ * if you have no web view in your application. If you have a web view, this will make the first web view load its
+ * contents faster the first time
  */
 #if !__has_feature(objc_arc)
-#define HLSEnableApplicationPreloading()                                                                  \
-    __attribute__ ((constructor)) void HLSEnableApplicationPreloadingConstructor(void)                    \
+#define HLSEnableWebViewPreloading()                                                                      \
+    __attribute__ ((constructor)) void HLSEnableWebViewPreloadingConstructor(void)                        \
     {                                                                                                     \
         NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];                                       \
-        [HLSApplicationPreloader enable];                                                                 \
+        [HLSApplicationPreloader enableForWebView];                                                       \
         [pool drain];                                                                                     \
     }
 #else
-#define HLSEnableApplicationPreloading()                                                                  \
-    __attribute__ ((constructor)) void HLSEnableApplicationPreloadingConstructor(void)                    \
+#define HLSEnableWebViewPreloading()                                                                      \
+    __attribute__ ((constructor)) void HLSEnableWebViewPreloadingConstructor(void)                        \
     {                                                                                                     \
-        [HLSApplicationPreloader enable];                                                                 \
+        [HLSApplicationPreloader enableForWebView];                                                       \
+    }
+#endif
+
+/**
+ * NSURLCache database is loaded asynchronously. The first time the cache is accessed, it might not be available
+ * (even if the URL was in the database because of a previous access). By enabling NSURLCache preloading, you force
+ * the cache to be loaded as early as possible, solving such issues
+ */
+#if !__has_feature(objc_arc)
+#define HLSEnableURLCachePreloading()                                                                     \
+    __attribute__ ((constructor)) void HLSEnableURLCachePreloadingConstructor(void)                       \
+    {                                                                                                     \
+        NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];                                       \
+        [HLSApplicationPreloader enableForURLCache];                                                      \
+        [pool drain];                                                                                     \
+    }
+#else
+#define HLSEnableURLCachePreloading()                                                                     \
+    __attribute__ ((constructor)) void HLSEnableURLCachePreloadingConstructor(void)                       \
+    {                                                                                                     \
+        [HLSApplicationPreloader enableForURLCache];                                                      \
     }
 #endif
 

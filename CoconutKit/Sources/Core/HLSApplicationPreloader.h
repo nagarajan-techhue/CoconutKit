@@ -8,8 +8,7 @@
 
 /**
  * Collects the code which can be executed right after an application has started so that perceived performance can be
- * increased. For the moment only UIWebView is preloaded so that the time usually required when instantiating the first
- * web view is reduced
+ * increased
  */
 @interface HLSApplicationPreloader : NSObject <UIWebViewDelegate> {
 @private
@@ -17,9 +16,15 @@
 }
 
 /**
- * Call this method as soon as possible if you want to enable preloading. For simplicity you should use the
- * HLSEnableApplicationPreloading convenience macro instead (see HLSOptionalFeatures.h)
+ * Call this method as soon as possible if you want to enable UIWebView preloading. For simplicity you should use the
+ * HLSEnableWebViewPreloading convenience macro instead (see HLSOptionalFeatures.h)
  */
-+ (void)enable;
++ (void)enableForWebView;
+
+/**
+ * Call this method as soon as possible if you want to enable NSURLCache preloading. For simplicity you should use the
+ * HLSEnableURLCachePreloading convenience macro instead (see HLSOptionalFeatures.h)
+ */
++ (void)enableForURLCache;
 
 @end

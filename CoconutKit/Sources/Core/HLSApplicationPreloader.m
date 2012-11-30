@@ -41,7 +41,7 @@ static BOOL swizzled_UIApplicationDelegate__application_didFinishLaunchingWithOp
 
 #pragma mark Class methods
 
-+ (void)enable
++ (void)enableForWebView
 {
     static BOOL s_enabled = NO;
     if (s_enabled) {
@@ -81,6 +81,14 @@ static BOOL swizzled_UIApplicationDelegate__application_didFinishLaunchingWithOp
     s_classNameToSwizzledApplicationDidFinishLaunchingWithOptionsImpMap = [[NSDictionary dictionaryWithDictionary:classNameToSwizzledApplicationDidFinishLaunchingWithOptionsImpMap] retain];
     
     s_enabled = YES;
+}
+
++ (void)enableForURLCache
+{
+    // NSURLCache database is loaded asynchronously. The first time the cache is accessed, it might not be available
+    // (even if the URL was in the database because of a previous access). A workaround is to force the cache to
+    // be loaded as early as possible (and this is how to achieve this result). Thanks to Cédric Lüthi for this trick
+    [NSURLCache sharedURLCache];
 }
 
 #pragma mark Object creation and destruction

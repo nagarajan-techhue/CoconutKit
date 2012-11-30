@@ -16,16 +16,9 @@ HLSEnableUIControlExclusiveTouch();
 // Enable Core Data easy validation
 HLSEnableNSManagedObjectValidation();
 
-__attribute__ ((constructor)) void loadURLCache(void)
-{
-    // NSURLCache database is loaded asynchronously. The first time the cache is accessed, it might not be available
-    // (even if the URL was in the database because of a previous access). A workaround is to force the cache to
-    // be loaded as early as possible (and this is how to achieve this result). Thanks to Cédric Lüthi for this trick
-    [NSURLCache sharedURLCache];
-}
-
 // Enable preloading
-HLSEnableApplicationPreloading();
+HLSEnableWebViewPreloading();
+HLSEnableURLCachePreloading();
 
 @interface CoconutKit_demoAppDelegate ()
 
