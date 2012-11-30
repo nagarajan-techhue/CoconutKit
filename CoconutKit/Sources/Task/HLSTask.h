@@ -14,14 +14,14 @@
 
 /**
  * Abstract class for tasks. Tasks offer a delegate mechanism for tracking their status. To create your own
- * tasks, simply subclass HLSTask and override the operationClass method to return the class of the operation
+ * tasks, simply subclass HLSTask and override the -operationClass method to return the class of the operation
  * responsible for processing the task.
  *
  * A task must not be submitted several times simultaneously (this leads to undefined behavior). A task
  * which was fully processed can be submitted again (and with another delegate if needed), but only when it
  * is not running anymore.
  *
- * Designated initializer: init
+ * Designated initializer: -init
  */
 @interface HLSTask : NSObject {
 @private
@@ -72,6 +72,7 @@
 @property (nonatomic, readonly, assign, getter=isCancelled) BOOL cancelled;
 
 /**
+<<<<<<< HEAD
  * Task progress information. The progress value always reaches 1.f when a task ends (whether it finishes 
  * successfully, encounters an error, or is cancelled)
  *

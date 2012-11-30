@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hortis. All rights reserved.
 //
 
-@interface URLConnectionDemoViewController : HLSViewController <HLSReloadable, HLSURLConnectionDelegate, UITableViewDataSource, UITableViewDelegate> {
+@interface URLConnectionDemoViewController : HLSViewController <HLSURLConnectionDelegate, UITableViewDataSource, UITableViewDelegate> {
 @private
     HLSURLConnection *m_asynchronousConnection;
     NSArray *m_coconuts;

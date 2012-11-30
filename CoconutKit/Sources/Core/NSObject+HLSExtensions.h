@@ -9,7 +9,7 @@
 @interface NSObject (HLSExtensions)
 
 /**
- * Returns the name of a class as a string
+ * Return the name of a class as a string
  */
 + (NSString *)className;
 
@@ -18,5 +18,10 @@
  * dynamic subclasses (e.g. those added by KVO)
  */
 - (NSString *)className;
+
+/**
+ * Return YES iff the object class implements all methods of a given protocol
+ */
+- (BOOL)implementsProtocol:(Protocol *)protocol;
 
 @end

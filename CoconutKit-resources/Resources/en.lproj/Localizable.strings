@@ -1,0 +1,43 @@
+/* 
+   Localizable.strings
+   CoconutKit
+
+   Created by Samuel Défago on 9/14/10.
+   Copyright 2010 Hortis. All rights reserved.
+ */
+ 
+/* < 1 min remaining */
+"< 1 min remaining"="< 1 min remaining";
+ 
+/* %d min remaining */
+"%d min remaining"="%d min remaining";
+
+/* %dd %dh remaining */
+"%dd %dh remaining"="%dd %dh remaining";
+
+/* %dh %dm remaining */
+"%dh %dm remaining"="%dh %dm remaining";
+
+/* Cannot Open Page */
+"Cannot Open Page"="Cannot Open Page";
+
+/* Formatting error */
+"Formatting error"="Formatting error";
+
+/* HLSWebViewController 'Mail Link' action */
+"Mail Link"="Mail Link";
+
+/* HTTP error: %@ (%d) */
+"HTTP error: %@ (%d)"="HTTP error: %@ (%d)";
+
+/* No Internet connection is available */
+"No Internet connection is available"="No Internet connection is available";
+
+/* HLSWebViewController 'Open in Safari' action */
+"Open in Safari"="Open in Safari";
+
+/* Unavailable */
+"Unavailable"="Unavailable";
+
+/* Untitled */
+"Untitled"="Untitled";

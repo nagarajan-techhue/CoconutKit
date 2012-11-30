@@ -41,11 +41,22 @@
 {
     [super setUpClass];
     
-    // Destroy any existing previous store and create a new empty one
-    HLSModelManager *modelManager = [[[HLSModelManager alloc] initWithModelFileName:@"CoconutKitTestData"
-                                                                     storeDirectory:HLSApplicationLibraryDirectoryPath() 
-                                                                              reuse:NO] autorelease];
-    [HLSModelManager setDefaultModelManager:modelManager];
+    // Destroy any existing previous store
+    NSString *libraryDirectoryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *storeFilePath = [HLSModelManager storeFilePathForModelFileName:@"CoconutKitTestData" storeDirectory:libraryDirectoryPath];
+    if (storeFilePath) {
+        NSError *error = nil;
+        if (! [[NSFileManager defaultManager] removeItemAtPath:storeFilePath error:&error]) {
+            HLSLoggerWarn(@"Could not remove store at path %@", storeFilePath);
+        }
+    }
+    
+    // Freshly create a test store
+    HLSModelManager *modelManager = [HLSModelManager SQLiteManagerWithModelFileName:@"CoconutKitTestData"
+                                                                      configuration:nil
+                                                                     storeDirectory:libraryDirectoryPath
+                                                                            options:HLSModelManagerLightweightMigrationOptions];
+    [HLSModelManager pushModelManager:modelManager];
     
     // Idea: We work with three test classes: Person, Account and House. A person can have several accounts, and 
     //       owns them (once the person dies, the account disappears). Moreover, an account is owned by a single
@@ -73,7 +84,7 @@
     bankAccount2.balanceValue = 79340087.;
     bankAccount2.owner = self.person1;
     
-    NSAssert([HLSModelManager saveDefaultModelContext:NULL], @"Failed to insert test data");
+    NSAssert([HLSModelManager saveCurrentModelContext:NULL], @"Failed to insert test data");
 }
 
 #pragma mark Tests
@@ -95,7 +106,7 @@
     GHAssertFalse([person1Duplicate.accounts isEqualToSet:self.person1.accounts], @"Accounts are incorrect");
     
     // Test overall consistency of the object hiearchy which has been duplicated
-    GHAssertTrue([HLSModelManager saveDefaultModelContext:NULL], @"Invalid objects");
+    GHAssertTrue([HLSModelManager saveCurrentModelContext:NULL], @"Invalid objects");
 }
 
 @end

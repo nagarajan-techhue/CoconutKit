@@ -23,19 +23,13 @@
 - (void)disableUserInterfaceForAsynchronousConnectionNoCancel;
 - (void)enableUserInterface;
 
+- (void)reloadData;
+
 @end
 
 @implementation URLConnectionDemoViewController
 
 #pragma mark Object creation and destruction
-
-- (id)init
-{
-    if ((self = [super initWithNibName:[self className] bundle:nil])) {
-        
-    }
-    return self;
-}
 
 - (void)dealloc
 {
@@ -107,13 +101,9 @@
 
 #pragma mark Orientation management
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+- (NSUInteger)supportedInterfaceOrientations
 {
-    if (! [super shouldAutorotateToInterfaceOrientation:toInterfaceOrientation]) {
-        return NO;
-    }
-    
-    return UIInterfaceOrientationIsPortrait(toInterfaceOrientation);
+    return [super supportedInterfaceOrientations] & UIInterfaceOrientationMaskPortrait;
 }
 
 #pragma mark Localization
@@ -271,7 +261,7 @@
     [self enableUserInterface];
 }
 
-#pragma mark HLSReloadable protocol implementation
+#pragma mark Updating the view
 
 - (void)reloadData
 {

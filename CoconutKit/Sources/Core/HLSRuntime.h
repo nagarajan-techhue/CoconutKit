@@ -11,6 +11,18 @@
 /**
  * The following methods can be safely used in pure C code
  */
+ 
+/**
+ * Enable or disable logging of the messages sent through objc_msgSend. Messages are logged to
+ *    /tmp/msgSends-XXXX
+ * with the following format:
+ *    <Receiver object class> <Class which implements the method> <Selector name>
+ *
+ * Remark:
+ * This is a function secretely implemented by the Objective-C runtime, not by CoconutKit. The declaration 
+ * is here only provided for convenience
+ */
+void instrumentObjcMessageSends(BOOL start);
 
 /**
  * Return the list of method descriptions a protocol or one of its parent protocols declares. This

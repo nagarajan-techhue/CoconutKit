@@ -12,6 +12,7 @@
 #import "HLSFloat.h"
 #import "HLSLogger.h"
 #import "HLSTask+Friend.h"
+#import "NSBundle+HLSExtensions.h"
 
 // Remark:
 // HLSTaskGroup is not a subclass of HLSTask. This would have been nice, but this would also have introduced subtle

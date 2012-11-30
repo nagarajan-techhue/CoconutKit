@@ -9,10 +9,13 @@
 #import "HLSWebViewController.h"
 
 #import "HLSActionSheet.h"
+#import "HLSAutorotation.h"
+#import "HLSNotifications.h"
 #import "NSBundle+HLSDynamicLocalization.h"
 #import "NSBundle+HLSExtensions.h"
 #import "NSError+HLSExtensions.h"
-#import "HLSNotifications.h"
+#import "NSBundle+HLSExtensions.h"
+#import "NSObject+HLSExtensions.h"
 #import "NSString+HLSExtensions.h"
 
 @interface HLSWebViewController ()
@@ -37,7 +40,7 @@
 
 - (id)initWithRequest:(NSURLRequest *)request
 {
-    if ((self = [super initWithNibName:@"CoconutKit_HLSWebViewController" bundle:nil])) {
+    if ((self = [super initWithBundle:[NSBundle coconutKitBundle]])) {
         self.request = request;
     }
     return self;
@@ -119,17 +122,13 @@
 
 #pragma mark Orientation management
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+- (NSUInteger)supportedInterfaceOrientations
 {
-    if (! [super shouldAutorotateToInterfaceOrientation:toInterfaceOrientation]) {
-        return NO;
-    }
-    
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        return UIInterfaceOrientationIsLandscape(toInterfaceOrientation) || toInterfaceOrientation == UIInterfaceOrientationPortrait;
+        return [super supportedInterfaceOrientations] & UIInterfaceOrientationMaskAllButUpsideDown;
     }
     else {
-        return YES;
+        return [super supportedInterfaceOrientations] & UIInterfaceOrientationMaskAll;
     }
 }
 
@@ -158,7 +157,7 @@
     self.toolbar.frame = (CGRect){CGPointMake(0.f, CGRectGetHeight(self.view.bounds) - toolbarSize.height), toolbarSize};
     self.webView.frame = (CGRect){CGPointZero, CGSizeMake(CGRectGetWidth(self.view.bounds), CGRectGetMinY(self.toolbar.frame))};
     
-    // Center UI elements accordinglys
+    // Center UI elements accordingly
     self.activityIndicator.center = CGPointMake(self.activityIndicator.center.x, CGRectGetMidY(self.toolbar.frame));
 }
 
@@ -179,7 +178,7 @@
         self.title = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
     }
     else {
-        self.title = NSLocalizedStringFromTable(@"Untitled", @"CoconutKit_Localizable", @"Untitled");
+        self.title = NSLocalizedStringFromTableInBundle(@"Untitled", @"Localizable", [NSBundle coconutKitBundle], @"Untitled");
     }
 }
 
@@ -221,8 +220,8 @@
     // We can also encounter other types of errors here (e.g. if a user clicks on two links consecutively on the same page. 
     // The first request is cancelled and ends with NSURLErrorCancelled)
     if ([error hasCode:NSURLErrorNotConnectedToInternet withinDomain:NSURLErrorDomain]) {
-        UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTable(@"Cannot Open Page", @"CoconutKit_Localizable", @"Cannot Open Page") 
-                                                             message:NSLocalizedStringFromTable(@"No Internet connection is available", @"CoconutKit_Localizable", 
+        UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"Cannot Open Page", @"Localizable", [NSBundle coconutKitBundle], @"Cannot Open Page") 
+                                                             message:NSLocalizedStringFromTableInBundle(@"No Internet connection is available", @"Localizable", [NSBundle coconutKitBundle], 
                                                                                                 @"No Internet connection is available")
                                                             delegate:nil 
                                                    cancelButtonTitle:HLSLocalizedStringFromUIKit(@"OK") 
@@ -265,11 +264,11 @@
 {    
     HLSActionSheet *actionSheet = [[[HLSActionSheet alloc] init] autorelease];
     actionSheet.title = [self.currentURL absoluteString];
-    [actionSheet addButtonWithTitle:NSLocalizedStringFromTable(@"Open in Safari", @"CoconutKit_Localizable", @"HLSWebViewController 'Open in Safari' action")
+    [actionSheet addButtonWithTitle:NSLocalizedStringFromTableInBundle(@"Open in Safari", @"Localizable", [NSBundle coconutKitBundle], @"HLSWebViewController 'Open in Safari' action")
                              target:self
                              action:@selector(openInSafari:)];
     if ([MFMailComposeViewController canSendMail]) {
-        [actionSheet addButtonWithTitle:NSLocalizedStringFromTable(@"Mail Link", @"CoconutKit_Localizable", @"HLSWebViewController 'Mail Link' action")
+        [actionSheet addButtonWithTitle:NSLocalizedStringFromTableInBundle(@"Mail Link", @"Localizable", [NSBundle coconutKitBundle], @"HLSWebViewController 'Mail Link' action")
                                  target:self
                                  action:@selector(mailLink:)];
     }

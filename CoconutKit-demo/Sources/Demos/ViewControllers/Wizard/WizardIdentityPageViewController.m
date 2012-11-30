@@ -15,6 +15,8 @@
 @property (nonatomic, retain) Person *person;
 @property (nonatomic, retain) NSDateFormatter *dateFormatter;
 
+- (void)reloadData;
+
 - (UILabel *)errorLabelForTextField:(UITextField *)textField;
 
 @end
@@ -25,9 +27,9 @@
 
 - (id)init
 {
-    if ((self = [super initWithNibName:[self className] bundle:nil])) {
+    if ((self = [super init])) {
         // Only one person in the DB. If does not exist yet, create it
-        Person *person = [[Person allObjects] firstObject];
+        Person *person = [[Person allObjects] firstObject_hls];
         if (! person) {
             person = [Person insert];
         }
@@ -133,45 +135,6 @@
     [self checkTextFields];
 }
 
-#pragma mark HLSReloadable protocol implementation
-
-- (void)reloadData
-{    
-    static NSNumberFormatter *s_numberFormatter = nil;
-    if (! s_numberFormatter) {
-        s_numberFormatter = [[NSNumberFormatter alloc] init];
-        [s_numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-        [s_numberFormatter setAllowsFloats:NO];
-    }
-    
-    [self.firstNameTextField bindToManagedObject:self.person
-                                       fieldName:@"firstName" 
-                                       formatter:nil
-                              validationDelegate:self];
-    [self.lastNameTextField bindToManagedObject:self.person
-                                      fieldName:@"lastName"
-                                      formatter:nil 
-                             validationDelegate:self];
-    [self.emailTextField bindToManagedObject:self.person
-                                   fieldName:@"email" 
-                                   formatter:nil 
-                          validationDelegate:self];
-    [self.emailTextField setCheckingOnChange:YES];
-    [self.birthdateTextField bindToManagedObject:self.person
-                                       fieldName:@"birthdate"
-                                       formatter:self.dateFormatter 
-                              validationDelegate:self];
-    [self.birthdateTextField setCheckingOnChange:YES];
-    [self.nbrChildrenTextField bindToManagedObject:self.person 
-                                         fieldName:@"nbrChildren"
-                                         formatter:s_numberFormatter 
-                                validationDelegate:self];
-    [self.nbrChildrenTextField setCheckingOnChange:YES];
-    
-    // Perform an initial complete validation
-    [self checkTextFields];
-}
-
 #pragma mark HLSValidable protocol implementation
 
 - (BOOL)validate
@@ -226,6 +189,45 @@
     
     UILabel *errorLabel = [self errorLabelForTextField:textField];
     errorLabel.text = [error localizedDescription];
+}
+
+#pragma mark Updating the view
+
+- (void)reloadData
+{
+    static NSNumberFormatter *s_numberFormatter = nil;
+    if (! s_numberFormatter) {
+        s_numberFormatter = [[NSNumberFormatter alloc] init];
+        [s_numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        [s_numberFormatter setAllowsFloats:NO];
+    }
+    
+    [self.firstNameTextField bindToManagedObject:self.person
+                                       fieldName:@"firstName"
+                                       formatter:nil
+                              validationDelegate:self];
+    [self.lastNameTextField bindToManagedObject:self.person
+                                      fieldName:@"lastName"
+                                      formatter:nil
+                             validationDelegate:self];
+    [self.emailTextField bindToManagedObject:self.person
+                                   fieldName:@"email"
+                                   formatter:nil
+                          validationDelegate:self];
+    [self.emailTextField setCheckingOnChange:YES];
+    [self.birthdateTextField bindToManagedObject:self.person
+                                       fieldName:@"birthdate"
+                                       formatter:self.dateFormatter
+                              validationDelegate:self];
+    [self.birthdateTextField setCheckingOnChange:YES];
+    [self.nbrChildrenTextField bindToManagedObject:self.person
+                                         fieldName:@"nbrChildren"
+                                         formatter:s_numberFormatter
+                                validationDelegate:self];
+    [self.nbrChildrenTextField setCheckingOnChange:YES];
+    
+    // Perform an initial complete validation
+    [self checkTextFields];
 }
 
 #pragma mark Retrieving the error label associated with a text field

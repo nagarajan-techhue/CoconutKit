@@ -9,6 +9,7 @@
 #import "HLSURLImageView.h"
 
 #import "HLSAnimation.h"
+#import "HLSLayerAnimationStep.h"
 #import "HLSLogger.h"
 #import "HLSZeroingWeakRef.h"
 
@@ -83,11 +84,10 @@
     [self.activityIndicatorView startAnimating];
     [self addSubview:self.activityIndicatorView];
     
-    HLSAnimationStep *animationStep1 = [HLSAnimationStep animationStep];
-    animationStep1.duration = 0.1;
-    HLSViewAnimationStep *viewAnimationStep11 = [HLSViewAnimationStep viewAnimationStep];
-    viewAnimationStep11.alphaVariation = 1.f;
-    [animationStep1 addViewAnimationStep:viewAnimationStep11 forView:self.activityIndicatorView];
+    HLSLayerAnimation *layerAnimation11 = [HLSLayerAnimation animation];
+    [layerAnimation11 addToOpacity:1.f];
+    HLSLayerAnimationStep *animationStep1 = [HLSLayerAnimationStep animationStep];
+    [animationStep1 addLayerAnimation:layerAnimation11 forView:self.activityIndicatorView];    
     self.loadingAnimation = [HLSAnimation animationWithAnimationStep:animationStep1];
 }
 

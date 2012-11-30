@@ -24,6 +24,9 @@ __attribute__ ((constructor)) void loadURLCache(void)
     [NSURLCache sharedURLCache];
 }
 
+// Enable preloading
+HLSEnableApplicationPreloading();
+
 @interface CoconutKit_demoAppDelegate ()
 
 @property (nonatomic, retain) CoconutKit_demoApplication *application;
@@ -54,8 +57,7 @@ __attribute__ ((constructor)) void loadURLCache(void)
     [self.window makeKeyAndVisible];
     
     self.application = [[[CoconutKit_demoApplication alloc] init] autorelease];
-    UIViewController *rootViewController = [self.application rootViewController];
-    [self.window addSubview:rootViewController.view];
+    self.window.rootViewController = [self.application rootViewController];
     
     return YES;
 }

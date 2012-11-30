@@ -13,6 +13,7 @@
 #import "HLSLogger.h"
 #import "HLSRestrictedInterfaceProxy.h"
 #import "HLSTaskGroup.h"
+#import "NSBundle+HLSExtensions.h"
 
 @interface HLSTask ()
 

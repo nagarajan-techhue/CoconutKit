@@ -19,7 +19,7 @@ extern NSString * const HLSCoconutKitErrorDomain;
  * required, as explained in the documentation:
  *   http://developer.apple.com/library/ios/#documentation/Cocoa/Conceptual/ErrorHandlingCocoa/ErrorHandling/ErrorHandling.html
  *
- * Designated initializer: initWithCode:
+ * Designated initializer: -initWithDomain:Code:
  */
 @interface HLSError : NSError {
 @private

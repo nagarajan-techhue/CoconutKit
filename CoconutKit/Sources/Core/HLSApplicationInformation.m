@@ -12,7 +12,7 @@
 
 NSString *HLSApplicationLibraryDirectoryPath(void)
 {
-    return [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];
+    return [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject_hls];
 }
 
 NSURL *HLSApplicationLibraryDirectoryURL(void)
@@ -22,7 +22,7 @@ NSURL *HLSApplicationLibraryDirectoryURL(void)
 
 NSString *HLSApplicationDocumentDirectoryPath(void)
 {
-    return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject_hls];
 }
 
 NSURL *HLSApplicationDocumentDirectoryURL(void)
@@ -42,7 +42,7 @@ NSURL *HLSApplicationTemporaryDirectoryURL(void)
 
 NSString *HLSApplicationCachesDirectoryPath(void)
 {
-    return [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+    return [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject_hls];
 }
 
 NSURL *HLSApplicationCachesDirectoryURL(void)
