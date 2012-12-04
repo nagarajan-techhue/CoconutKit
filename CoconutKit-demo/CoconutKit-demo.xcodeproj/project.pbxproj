@@ -1249,7 +1249,7 @@
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = "${PROJECT_DIR}/../Tools/Makefile";
+			buildWorkingDirectory = "${PROJECT_DIR}/../CoconutKit";
 			dependencies = (
 			);
 			name = "CoconutKit-demo-staticframework";

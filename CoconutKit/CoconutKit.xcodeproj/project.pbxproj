@@ -951,7 +951,7 @@
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = "${PROJECT_DIR}/../Tools/Makefile";
+			buildWorkingDirectory = "";
 			dependencies = (
 			);
 			name = "CoconutKit-staticframework";
