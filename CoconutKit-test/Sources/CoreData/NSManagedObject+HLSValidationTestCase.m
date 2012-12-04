@@ -43,8 +43,7 @@
     [super setUpClass];
     
     // Destroy any existing previous store
-    NSString *libraryDirectoryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *storeFilePath = [HLSModelManager storeFilePathForModelFileName:@"CoconutKitTestData" storeDirectory:libraryDirectoryPath];
+    NSString *storeFilePath = [HLSModelManager storeFilePathForModelFileName:@"CoconutKitTestData" storeDirectory:HLSApplicationLibraryDirectoryPath()];
     if (storeFilePath) {
         NSError *error = nil;
         if (! [[NSFileManager defaultManager] removeItemAtPath:storeFilePath error:&error]) {
