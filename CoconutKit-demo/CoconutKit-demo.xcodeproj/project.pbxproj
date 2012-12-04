@@ -590,7 +590,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6F159C2F15A5B7B00020AFAC /* CoconutKit-trunk-Release.staticframework */,
+				6F159C2F15A5B7B00020AFAC /* CoconutKit-trunk-$(CONFIGURATION).staticframework */,
 				6FC900F613D4662400834900 /* CoreData.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
@@ -1220,15 +1220,15 @@
 			path = Generated;
 			sourceTree = "<group>";
 		};
-		6F159C2F15A5B7B00020AFAC /* CoconutKit-trunk-Release.staticframework */ = {
+		6F159C2F15A5B7B00020AFAC /* CoconutKit-trunk-$(CONFIGURATION).staticframework */ = {
 			isa = PBXGroup;
 			children = (
 				6F159C3015A5B7B00020AFAC /* Bootstrap */,
 				6F159C3215A5B7B00020AFAC /* CoconutKit-resources.bundle */,
 				6F159C3315A5B7B00020AFAC /* CoconutKit.framework */,
 			);
-			name = "CoconutKit-trunk-Release.staticframework";
-			path = "../Binaries/CoconutKit-trunk-Release.staticframework";
+			name = "CoconutKit-trunk-$(CONFIGURATION).staticframework";
+			path = "../Binaries/CoconutKit-trunk-$(CONFIGURATION).staticframework";
 			sourceTree = "<group>";
 		};
 		6F159C3015A5B7B00020AFAC /* Bootstrap */ = {
