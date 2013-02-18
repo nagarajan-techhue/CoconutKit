@@ -50,7 +50,10 @@ static id swizzled_UIBarButtonItem__target_Imp(UIBarButtonItem *self, SEL _cmd);
         // Support both selectors of the form - (void)action:(id)sender and - (void)action
         SEL action = (*s_UIBarButtonItem__action_Imp)(self, @selector(action));
         id target = (*s_UIBarButtonItem__target_Imp)(self, @selector(target));
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
         [target performSelector:action withObject:sender];
+#pragma clang diagnostic pop
     }
     // Clicking on the same bar button item from which the action sheet was shown. Close it
     // but do not trigger the button action again

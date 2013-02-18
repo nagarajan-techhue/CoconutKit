@@ -171,7 +171,10 @@ destructiveButtonTitle:(NSString *)destructiveButtonTitle
         
         // Support both selectors of the form - (void)action:(id)sender and - (void)action
         if (action) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             [target performSelector:action withObject:self];
+#pragma clang diagnostic pop
         }
     }
     

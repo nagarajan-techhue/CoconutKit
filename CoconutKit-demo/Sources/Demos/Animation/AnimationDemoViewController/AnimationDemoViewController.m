@@ -135,7 +135,10 @@ static const NSTimeInterval kAnimationIntrinsicDuration = -1.;
 {
     NSUInteger animationIndex = [self.animationPickerView selectedRowInComponent:0] + 1;
     SEL selector = [self selectorForAnimationWithIndex:animationIndex];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     HLSAnimation *animation = [self performSelector:selector];
+#pragma clang diagnostic pop
     animation.tag = [NSString stringWithFormat:@"animation%d", animationIndex];
     if (self.reverseSwitch.on) {
         animation = [animation reverseAnimation];
