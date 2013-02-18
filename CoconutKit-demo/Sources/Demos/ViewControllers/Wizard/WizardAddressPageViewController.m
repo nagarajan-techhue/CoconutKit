@@ -12,16 +12,16 @@
 
 @interface WizardAddressPageViewController ()
 
-@property (nonatomic, retain) Person *person;
+@property (nonatomic, strong) Person *person;
 
-@property (nonatomic, retain) IBOutlet HLSTextField *streetTextField;
-@property (nonatomic, retain) IBOutlet UILabel *streetErrorLabel;
-@property (nonatomic, retain) IBOutlet HLSTextField *cityTextField;
-@property (nonatomic, retain) IBOutlet UILabel *cityErrorLabel;
-@property (nonatomic, retain) IBOutlet HLSTextField *stateTextField;
-@property (nonatomic, retain) IBOutlet UILabel *stateErrorLabel;
-@property (nonatomic, retain) IBOutlet HLSTextField *countryTextField;
-@property (nonatomic, retain) IBOutlet UILabel *countryErrorLabel;
+@property (nonatomic, weak) IBOutlet HLSTextField *streetTextField;
+@property (nonatomic, weak) IBOutlet UILabel *streetErrorLabel;
+@property (nonatomic, weak) IBOutlet HLSTextField *cityTextField;
+@property (nonatomic, weak) IBOutlet UILabel *cityErrorLabel;
+@property (nonatomic, weak) IBOutlet HLSTextField *stateTextField;
+@property (nonatomic, weak) IBOutlet UILabel *stateErrorLabel;
+@property (nonatomic, weak) IBOutlet HLSTextField *countryTextField;
+@property (nonatomic, weak) IBOutlet UILabel *countryErrorLabel;
 
 @end
 
@@ -42,7 +42,6 @@
 {
     self.person = nil;
     
-    [super dealloc];
 }
 
 - (void)releaseViews
@@ -67,8 +66,7 @@
         return;
     }
     
-    [_person release];
-    _person = [person retain];
+    _person = person;
     
     [self reloadData];
 }

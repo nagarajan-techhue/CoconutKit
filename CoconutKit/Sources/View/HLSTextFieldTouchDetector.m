@@ -10,7 +10,7 @@
 
 @interface HLSTextFieldTouchDetector ()
 
-@property (nonatomic, retain) UIGestureRecognizer *gestureRecognizer;
+@property (nonatomic, strong) UIGestureRecognizer *gestureRecognizer;
 
 @end
 
@@ -22,8 +22,8 @@
 {
     if ((self = [super initWithTextField:textField])) {
         // Create a gesture recognizer capturing taps on the whole window
-        self.gestureRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                          action:@selector(dismissKeyboard:)] autorelease];
+        self.gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                          action:@selector(dismissKeyboard:)];
         self.gestureRecognizer.cancelsTouchesInView = NO;       // Let the taps go through
         self.gestureRecognizer.delegate = self;
         
@@ -32,12 +32,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    self.gestureRecognizer = nil;
-    
-    [super dealloc];
-}
 
 #pragma mark UITextFieldDelegate protocol implementation
 

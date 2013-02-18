@@ -142,7 +142,7 @@
  * in the nib). Though this issue seems to affect only storyboards on iOS 5 and 6, the placeholderViews property expects 
  * you to index placeholder views using the UIView tag property, and will sort them in increasing order
  */
-@property (nonatomic, retain) IBOutletCollection(UIView) NSArray *placeholderViews;
+@property (nonatomic, strong) IBOutletCollection(UIView) NSArray *placeholderViews;
 
 /**
  * Return the placeholder view at the given index, or nil if none
@@ -171,7 +171,7 @@
 /**
  * The placeholder view controller delegate
  */
-@property (nonatomic, assign) IBOutlet id<HLSPlaceholderViewControllerDelegate> delegate;
+@property (nonatomic, weak) IBOutlet id<HLSPlaceholderViewControllerDelegate> delegate;
 
 @end
 

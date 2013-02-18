@@ -18,7 +18,7 @@
 
 @interface HLSStackController ()
 
-@property (nonatomic, retain) HLSContainerStack *containerStack;
+@property (nonatomic, strong) HLSContainerStack *containerStack;
 @property (nonatomic, assign) NSUInteger capacity;
 
 @end
@@ -32,9 +32,9 @@
     if ((self = [super init])) {
         self.autorotationMode = HLSAutorotationModeContainer;
         
-        self.containerStack = [[[HLSContainerStack alloc] initWithContainerViewController:self
+        self.containerStack = [[HLSContainerStack alloc] initWithContainerViewController:self
                                                                                  behavior:HLSContainerStackBehaviorFixedRoot
-                                                                                 capacity:capacity] autorelease];
+                                                                                 capacity:capacity];
         self.containerStack.autorotationMode = self.autorotationMode;
         self.containerStack.delegate = self;
         [self.containerStack pushViewController:rootViewController 
@@ -69,9 +69,9 @@
 {
     [super awakeFromNib];
     
-    self.containerStack = [[[HLSContainerStack alloc] initWithContainerViewController:self
+    self.containerStack = [[HLSContainerStack alloc] initWithContainerViewController:self
                                                                              behavior:HLSContainerStackBehaviorFixedRoot
-                                                                             capacity:self.capacity] autorelease];
+                                                                             capacity:self.capacity];
     self.containerStack.autorotationMode = self.autorotationMode;
     
     // Load the root view controller when using segues. A reserved segue called 'hls_root' must be used for such purposes
@@ -94,10 +94,8 @@
 
 - (void)dealloc
 {
-    self.containerStack = nil;
     self.delegate = nil;
     
-    [super dealloc];
 }
 
 - (void)releaseViews
@@ -176,7 +174,7 @@
 {
     // Take all space available
     CGRect applicationFrame = [UIScreen mainScreen].applicationFrame;
-    self.view = [[[UIView alloc] initWithFrame:applicationFrame] autorelease];
+    self.view = [[UIView alloc] initWithFrame:applicationFrame];
     self.view.autoresizingMask = HLSViewAutoresizingAll;
     
     self.containerStack.containerView = self.view;

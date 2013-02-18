@@ -12,11 +12,11 @@
 
 @interface RootNavigationDemoViewController ()
 
-@property (nonatomic, retain) IBOutlet UISwitch *portraitSwitch;
-@property (nonatomic, retain) IBOutlet UISwitch *landscapeRightSwitch;
-@property (nonatomic, retain) IBOutlet UISwitch *landscapeLeftSwitch;
-@property (nonatomic, retain) IBOutlet UISwitch *portraitUpsideDownSwitch;
-@property (nonatomic, retain) IBOutlet UISegmentedControl *autorotationModeSegmentedControl;
+@property (nonatomic, weak) IBOutlet UISwitch *portraitSwitch;
+@property (nonatomic, weak) IBOutlet UISwitch *landscapeRightSwitch;
+@property (nonatomic, weak) IBOutlet UISwitch *landscapeLeftSwitch;
+@property (nonatomic, weak) IBOutlet UISwitch *portraitUpsideDownSwitch;
+@property (nonatomic, weak) IBOutlet UISegmentedControl *autorotationModeSegmentedControl;
 
 @end
 
@@ -197,7 +197,7 @@
 
 - (IBAction)push:(id)sender
 {
-    RootNavigationDemoViewController *rootNavigationDemoViewController = [[[RootNavigationDemoViewController alloc] init] autorelease];
+    RootNavigationDemoViewController *rootNavigationDemoViewController = [[RootNavigationDemoViewController alloc] init];
     [self.navigationController pushViewController:rootNavigationDemoViewController animated:YES];
 }
 
@@ -208,7 +208,7 @@
 
 - (IBAction)hideWithModal:(id)sender
 {
-    MemoryWarningTestCoverViewController *memoryWarningTestCoverViewController = [[[MemoryWarningTestCoverViewController alloc] init] autorelease];
+    MemoryWarningTestCoverViewController *memoryWarningTestCoverViewController = [[MemoryWarningTestCoverViewController alloc] init];
     [self presentModalViewController:memoryWarningTestCoverViewController animated:YES];
 }
 

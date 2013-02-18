@@ -13,16 +13,16 @@
 
 @interface RootStackDemoViewController ()
 
-@property (nonatomic, retain) IBOutlet UIBarButtonItem *backBarButtonItem;
-@property (nonatomic, retain) IBOutlet UIBarButtonItem *actionSheetBarButtonItem;
-@property (nonatomic, retain) IBOutlet UIButton *popButton;
-@property (nonatomic, retain) IBOutlet UIPickerView *transitionPickerView;
-@property (nonatomic, retain) IBOutlet UISwitch *animatedSwitch;
-@property (nonatomic, retain) IBOutlet UISwitch *portraitSwitch;
-@property (nonatomic, retain) IBOutlet UISwitch *landscapeRightSwitch;
-@property (nonatomic, retain) IBOutlet UISwitch *landscapeLeftSwitch;
-@property (nonatomic, retain) IBOutlet UISwitch *portraitUpsideDownSwitch;
-@property (nonatomic, retain) IBOutlet UISegmentedControl *autorotationModeSegmentedControl;
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *backBarButtonItem;
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *actionSheetBarButtonItem;
+@property (nonatomic, weak) IBOutlet UIButton *popButton;
+@property (nonatomic, weak) IBOutlet UIPickerView *transitionPickerView;
+@property (nonatomic, weak) IBOutlet UISwitch *animatedSwitch;
+@property (nonatomic, weak) IBOutlet UISwitch *portraitSwitch;
+@property (nonatomic, weak) IBOutlet UISwitch *landscapeRightSwitch;
+@property (nonatomic, weak) IBOutlet UISwitch *landscapeLeftSwitch;
+@property (nonatomic, weak) IBOutlet UISwitch *portraitUpsideDownSwitch;
+@property (nonatomic, weak) IBOutlet UISegmentedControl *autorotationModeSegmentedControl;
 
 @end
 
@@ -252,7 +252,7 @@
 
 - (IBAction)push:(id)sender
 {
-    RootStackDemoViewController *demoViewController = [[[RootStackDemoViewController alloc] init] autorelease];
+    RootStackDemoViewController *demoViewController = [[RootStackDemoViewController alloc] init];
     [self displayViewController:demoViewController];
 }
 
@@ -268,33 +268,33 @@
 
 - (IBAction)pushTabBarController:(id)sender
 {
-    StretchableViewController *stretchableViewController = [[[StretchableViewController alloc] init] autorelease];
-    stretchableViewController.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close", nil)
+    StretchableViewController *stretchableViewController = [[StretchableViewController alloc] init];
+    stretchableViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close", nil)
                                                                                                    style:UIBarButtonItemStyleDone 
                                                                                                   target:self 
-                                                                                                  action:@selector(closeNativeContainer:)] autorelease];
-    UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController:stretchableViewController] autorelease];
+                                                                                                  action:@selector(closeNativeContainer:)];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:stretchableViewController];
     navigationController.autorotationMode = HLSAutorotationModeContainerAndTopChildren;
-    UITabBarController *tabBarController = [[[UITabBarController alloc] init] autorelease];
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
     tabBarController.viewControllers = [NSArray arrayWithObject:navigationController];
     [self displayViewController:tabBarController];    
 }
 
 - (IBAction)pushNavigationController:(id)sender
 {
-    StretchableViewController *stretchableViewController = [[[StretchableViewController alloc] init] autorelease];
-    stretchableViewController.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close", nil)
+    StretchableViewController *stretchableViewController = [[StretchableViewController alloc] init];
+    stretchableViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close", nil)
                                                                                                    style:UIBarButtonItemStyleDone 
                                                                                                   target:self 
-                                                                                                  action:@selector(closeNativeContainer:)] autorelease];
-    UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController:stretchableViewController] autorelease];
+                                                                                                  action:@selector(closeNativeContainer:)];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:stretchableViewController];
     navigationController.autorotationMode = HLSAutorotationModeContainerAndTopChildren;
     [self displayViewController:navigationController];
 }
 
 - (IBAction)hideWithModal:(id)sender
 {
-    MemoryWarningTestCoverViewController *memoryWarningTestCoverViewController = [[[MemoryWarningTestCoverViewController alloc] init] autorelease];
+    MemoryWarningTestCoverViewController *memoryWarningTestCoverViewController = [[MemoryWarningTestCoverViewController alloc] init];
     memoryWarningTestCoverViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentModalViewController:memoryWarningTestCoverViewController animated:YES];
 }
@@ -302,7 +302,7 @@
 - (IBAction)showActionSheet:(id)sender
 {
     // Just to test behavior during pop
-    HLSActionSheet *actionSheet = [[[HLSActionSheet alloc] init] autorelease];
+    HLSActionSheet *actionSheet = [[HLSActionSheet alloc] init];
     [actionSheet addButtonWithTitle:@"1"
                              target:self
                              action:NULL];

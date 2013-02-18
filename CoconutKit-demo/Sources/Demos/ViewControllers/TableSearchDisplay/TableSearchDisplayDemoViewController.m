@@ -23,8 +23,8 @@ typedef enum {
 
 @interface TableSearchDisplayDemoViewController ()
 
-@property (nonatomic, retain) NSArray *devices;
-@property (nonatomic, retain) NSArray *filteredDevices;
+@property (nonatomic, strong) NSArray *devices;
+@property (nonatomic, strong) NSArray *filteredDevices;
 
 @end
 
@@ -72,12 +72,6 @@ typedef enum {
     return self;
 }
 
-- (void)dealloc
-{
-    self.devices = nil;
-    self.filteredDevices = nil;
-    [super dealloc];
-}
 
 #pragma mark UISearchDisplayDelegate protocol implementation
 
@@ -158,7 +152,7 @@ typedef enum {
     
     // Push another dummy level
     if (self.navigationController) {
-        StretchableViewController *stretchableViewController = [[[StretchableViewController alloc] init] autorelease];
+        StretchableViewController *stretchableViewController = [[StretchableViewController alloc] init];
         [self.navigationController pushViewController:stretchableViewController animated:YES];        
     }
 }

@@ -19,10 +19,10 @@ extern void (*UITextField__setText_Imp)(id, SEL, id);
 
 @interface HLSManagedTextFieldValidator ()
 
-@property (nonatomic, retain) NSManagedObject *managedObject;
-@property (nonatomic, retain) NSString *fieldName;
-@property (nonatomic, retain) NSFormatter *formatter;
-@property (nonatomic, assign) id<HLSTextFieldValidationDelegate> validationDelegate;
+@property (nonatomic, strong) NSManagedObject *managedObject;
+@property (nonatomic, strong) NSString *fieldName;
+@property (nonatomic, strong) NSFormatter *formatter;
+@property (nonatomic, weak) id<HLSTextFieldValidationDelegate> validationDelegate;
 
 @end
 
@@ -40,7 +40,6 @@ extern void (*UITextField__setText_Imp)(id, SEL, id);
         // Sanity check
         if (! managedObject || ! fieldName) {
             HLSLoggerError(@"Missing managed object or field name");
-            [self release];
             return nil;
         }
         
@@ -48,7 +47,6 @@ extern void (*UITextField__setText_Imp)(id, SEL, id);
         NSPropertyDescription *propertyDescription = [[[managedObject entity] propertiesByName] objectForKey:fieldName];
         if (! propertyDescription) {
             HLSLoggerError(@"The property %@ does not exist for %@", fieldName, managedObject);
-            [self release];
             return nil;
         }
         
@@ -56,7 +54,6 @@ extern void (*UITextField__setText_Imp)(id, SEL, id);
         // make sense
         if (! [propertyDescription isKindOfClass:[NSAttributeDescription class]]) {
             HLSLoggerError(@"The field %@ is not an attribute and cannot be bound", fieldName);
-            [self release];
             return nil;
         }
         
@@ -82,12 +79,8 @@ extern void (*UITextField__setText_Imp)(id, SEL, id);
 {
     [self.managedObject removeObserver:self forKeyPath:self.fieldName];
     
-    self.managedObject = nil;
-    self.fieldName = nil;
-    self.formatter = nil;
     self.validationDelegate = nil;
     
-    [super dealloc];
 }
 
 #pragma mark UITextFieldDelegate protocol implementation

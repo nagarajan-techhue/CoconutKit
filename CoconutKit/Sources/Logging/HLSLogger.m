@@ -12,9 +12,9 @@
 #pragma mark HLSLoggerMode struct
 
 typedef struct {
-	NSString *name;                 // Mode name
-	HLSLoggerLevel level;           // Corresponding level
-    NSString *rgbValues;            // RGB values for XcodeColors
+	__unsafe_unretained NSString *name;                 // Mode name
+	HLSLoggerLevel level;                               // Corresponding level
+    __unsafe_unretained NSString *rgbValues;            // RGB values for XcodeColors
 } HLSLoggerMode;
 
 static const HLSLoggerMode kLoggerModeDebug = {@"DEBUG", 0, nil};

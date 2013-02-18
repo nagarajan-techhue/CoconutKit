@@ -23,11 +23,11 @@
 /**
  * The text field which the internal delegate object is the delegate of
  */
-@property (nonatomic, readonly, assign) UITextField *textField;       // weak ref. Detector lifetime is managed by the text field
+@property (nonatomic, readonly, weak) UITextField *textField;       // weak ref. Detector lifetime is managed by the text field
 
 /**
  * The real text field delegate as seen externally
  */
-@property (nonatomic, assign) id<UITextFieldDelegate> delegate;
+@property (nonatomic, weak) id<UITextFieldDelegate> delegate;
 
 @end

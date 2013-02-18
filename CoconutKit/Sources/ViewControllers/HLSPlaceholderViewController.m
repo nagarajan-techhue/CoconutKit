@@ -16,7 +16,7 @@
 
 @interface HLSPlaceholderViewController ()
 
-@property (nonatomic, retain) NSMutableArray *containerStacks;
+@property (nonatomic, strong) NSMutableArray *containerStacks;
 
 @end
 
@@ -68,10 +68,8 @@
 
 - (void)dealloc
 {
-    self.containerStacks = nil;
     self.delegate = nil;
     
-    [super dealloc];
 }
 
 - (void)releaseViews

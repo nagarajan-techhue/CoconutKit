@@ -55,7 +55,7 @@ typedef enum {
 /**
  * The search bar delegate
  */
-@property (nonatomic, assign) id<HLSExpandingSearchBarDelegate> delegate;
+@property (nonatomic, weak) id<HLSExpandingSearchBarDelegate> delegate;
 
 /**
  * Expand or collapse the search bar. Can be used to create a search bar initially expanded

@@ -40,7 +40,7 @@ static const NSInteger kBackgroundImageViewTag = 28756;         // Very unlikely
     // Adding
     else {
         if (backgroundImage) {
-            UIImageView *backgroundImageView = [[[UIImageView alloc] initWithFrame:self.bounds] autorelease];
+            UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.bounds];
             backgroundImageView.image = backgroundImage;
             backgroundImageView.tag = kBackgroundImageViewTag;
             backgroundImageView.contentMode = UIViewContentModeScaleToFill;

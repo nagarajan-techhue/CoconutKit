@@ -18,8 +18,8 @@ static const CGFloat kSearchBarStandardHeight = 44.f;
 
 @interface HLSExpandingSearchBar ()
 
-@property (nonatomic, retain) UISearchBar *searchBar;
-@property (nonatomic, retain) UIButton *searchButton;
+@property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) UIButton *searchButton;
 
 @end
 
@@ -50,11 +50,8 @@ static const CGFloat kSearchBarStandardHeight = 44.f;
 
 - (void)dealloc
 {
-    self.searchBar = nil;
-    self.searchButton = nil;
     self.delegate = nil;
 
-    [super dealloc];
 }
 
 - (void)hlsExpandingSearchBarInit
@@ -70,7 +67,7 @@ static const CGFloat kSearchBarStandardHeight = 44.f;
                                 kSearchBarStandardHeight);
     }
     
-    self.searchBar = [[[UISearchBar alloc] initWithFrame:CGRectMake(0.f, 0.f, kSearchBarStandardHeight, kSearchBarStandardHeight)] autorelease];
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.f, 0.f, kSearchBarStandardHeight, kSearchBarStandardHeight)];
     self.searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     self.searchBar.alpha = 0.f;
     self.searchBar.delegate = self;
@@ -81,7 +78,7 @@ static const CGFloat kSearchBarStandardHeight = 44.f;
     UIView *backgroundView = [self.searchBar.subviews firstObject_hls];
     backgroundView.alpha = 0.f;
     
-    self.searchButton = [[[UIButton alloc] initWithFrame:CGRectMake(0.f, 0.f, kSearchBarStandardHeight, kSearchBarStandardHeight)] autorelease];
+    self.searchButton = [[UIButton alloc] initWithFrame:CGRectMake(0.f, 0.f, kSearchBarStandardHeight, kSearchBarStandardHeight)];
     self.searchButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     [self.searchButton setImage:[UIImage imageNamed:@"CoconutKit-resources.bundle/SearchFieldIcon.png"] forState:UIControlStateNormal];
     [self.searchButton addTarget:self 
@@ -120,7 +117,6 @@ static const CGFloat kSearchBarStandardHeight = 44.f;
         return;
     }
     
-    [_prompt release];
     _prompt = [prompt copy];
     
     if (_expanded) {
@@ -134,7 +130,6 @@ static const CGFloat kSearchBarStandardHeight = 44.f;
         return;
     }
     
-    [_placeholder release];
     _placeholder = [placeholder copy];
     
     if (_expanded) {

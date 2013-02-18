@@ -29,19 +29,19 @@ typedef enum {
 
 @interface StackDemoViewController ()
 
-@property (nonatomic, retain) IBOutlet UISlider *sizeSlider;
-@property (nonatomic, retain) IBOutlet UISegmentedControl *resizeMethodSegmentedControl;
-@property (nonatomic, retain) IBOutlet UIButton *popoverButton;
-@property (nonatomic, retain) IBOutlet UIPickerView *transitionPickerView;
-@property (nonatomic, retain) IBOutlet UISegmentedControl *autorotationModeSegmentedControl;
-@property (nonatomic, retain) IBOutlet UISwitch *inTabBarControllerSwitch;
-@property (nonatomic, retain) IBOutlet UISwitch *inNavigationControllerSwitch;
-@property (nonatomic, retain) IBOutlet UISwitch *animatedSwitch;
-@property (nonatomic, retain) IBOutlet UISlider *indexSlider;
-@property (nonatomic, retain) IBOutlet UILabel *insertionIndexLabel;
-@property (nonatomic, retain) IBOutlet UILabel *removalIndexLabel;
+@property (nonatomic, weak) IBOutlet UISlider *sizeSlider;
+@property (nonatomic, weak) IBOutlet UISegmentedControl *resizeMethodSegmentedControl;
+@property (nonatomic, weak) IBOutlet UIButton *popoverButton;
+@property (nonatomic, weak) IBOutlet UIPickerView *transitionPickerView;
+@property (nonatomic, weak) IBOutlet UISegmentedControl *autorotationModeSegmentedControl;
+@property (nonatomic, weak) IBOutlet UISwitch *inTabBarControllerSwitch;
+@property (nonatomic, weak) IBOutlet UISwitch *inNavigationControllerSwitch;
+@property (nonatomic, weak) IBOutlet UISwitch *animatedSwitch;
+@property (nonatomic, weak) IBOutlet UISlider *indexSlider;
+@property (nonatomic, weak) IBOutlet UILabel *insertionIndexLabel;
+@property (nonatomic, weak) IBOutlet UILabel *removalIndexLabel;
 
-@property (nonatomic, retain) UIPopoverController *displayedPopoverController;
+@property (nonatomic, strong) UIPopoverController *displayedPopoverController;
 
 @end
 
@@ -55,8 +55,8 @@ typedef enum {
 - (id)init
 {
     if ((self = [super init])) {
-        UIViewController *rootViewController = [[[LifeCycleTestViewController alloc] init] autorelease];        
-        HLSStackController *stackController = [[[HLSStackController alloc] initWithRootViewController:rootViewController] autorelease];
+        UIViewController *rootViewController = [[LifeCycleTestViewController alloc] init];        
+        HLSStackController *stackController = [[HLSStackController alloc] initWithRootViewController:rootViewController];
         stackController.delegate = self;
         stackController.title = @"HLSStackController";
         
@@ -73,31 +73,31 @@ typedef enum {
         self.autorotationMode = HLSAutorotationModeContainerAndTopChildren;
         
         // Pre-load other view controllers before display. Yep, this is possible!
-        UIViewController *firstViewController = [[[TransparentViewController alloc] init] autorelease];
+        UIViewController *firstViewController = [[TransparentViewController alloc] init];
         [stackController pushViewController:firstViewController 
                         withTransitionClass:[HLSTransitionEmergeFromCenter class]
                                    animated:NO];
-        UIViewController *secondViewController = [[[TransparentViewController alloc] init] autorelease];
+        UIViewController *secondViewController = [[TransparentViewController alloc] init];
         [stackController pushViewController:secondViewController 
                         withTransitionClass:[HLSTransitionPushFromRight class]
                                    animated:NO];
-        UIViewController *thirdViewController = [[[TransparentViewController alloc] init] autorelease];
+        UIViewController *thirdViewController = [[TransparentViewController alloc] init];
         [stackController pushViewController:thirdViewController 
                         withTransitionClass:[HLSTransitionCoverFromRightPushToBack class]
                                    animated:NO];
-        UIViewController *fourthViewController = [[[LifeCycleTestViewController alloc] init] autorelease];
+        UIViewController *fourthViewController = [[LifeCycleTestViewController alloc] init];
         [stackController pushViewController:fourthViewController 
                         withTransitionClass:[HLSTransitionCoverFromBottom class]
                                    animated:NO];
-        UIViewController *fifthViewController = [[[LifeCycleTestViewController alloc] init] autorelease];
+        UIViewController *fifthViewController = [[LifeCycleTestViewController alloc] init];
         [stackController pushViewController:fifthViewController 
                         withTransitionClass:[HLSTransitionPushFromTop class]
                                    animated:NO];
-        UIViewController *sixthViewController = [[[LifeCycleTestViewController alloc] init] autorelease];
+        UIViewController *sixthViewController = [[LifeCycleTestViewController alloc] init];
         [stackController pushViewController:sixthViewController
                         withTransitionClass:[HLSTransitionRotateVerticallyFromLeftClockwise class]
                                    animated:NO];
-        UIViewController *seventhViewController = [[[LifeCycleTestViewController alloc] init] autorelease];
+        UIViewController *seventhViewController = [[LifeCycleTestViewController alloc] init];
         [stackController pushViewController:seventhViewController
                         withTransitionClass:[HLSTransitionFlipHorizontally class]
                                    animated:NO];
@@ -107,12 +107,6 @@ typedef enum {
     return self;
 }
 
-- (void)dealloc
-{
-    self.displayedPopoverController = nil;
-
-    [super dealloc];
-}
 
 - (void)releaseViews
 { 
@@ -220,12 +214,12 @@ typedef enum {
     UIViewController *pushedViewController = viewController;
     if (pushedViewController) {
         if (self.inNavigationControllerSwitch.on) {
-            UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController:pushedViewController] autorelease];
+            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:pushedViewController];
             navigationController.autorotationMode = HLSAutorotationModeContainerAndTopChildren;
             pushedViewController = navigationController;
         }
         if (self.inTabBarControllerSwitch.on) {
-            UITabBarController *tabBarController = [[[UITabBarController alloc] init] autorelease];
+            UITabBarController *tabBarController = [[UITabBarController alloc] init];
             tabBarController.viewControllers = [NSArray arrayWithObject:pushedViewController];
             pushedViewController = tabBarController;
         }    
@@ -242,11 +236,11 @@ typedef enum {
                                      animated:self.animatedSwitch.on];
     }
     @catch (NSException *exception) {
-        UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil)
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil)
                                                              message:NSLocalizedString(@"The view controller is not compatible with the container (most probably its orientation)", nil)
                                                             delegate:nil
                                                    cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
-                                                   otherButtonTitles:nil] autorelease];
+                                                   otherButtonTitles:nil];
         [alertView show];
         return;
     }
@@ -395,62 +389,62 @@ typedef enum {
 
 - (IBAction)displayLifeCycleTest:(id)sender
 {
-    LifeCycleTestViewController *lifecycleTestViewController = [[[LifeCycleTestViewController alloc] init] autorelease];
+    LifeCycleTestViewController *lifecycleTestViewController = [[LifeCycleTestViewController alloc] init];
     [self displayContentViewController:lifecycleTestViewController];
 }
 
 - (IBAction)displayContainmentTest:(id)sender
 {
-    ContainmentTestViewController *containmentTestViewController = [[[ContainmentTestViewController alloc] init] autorelease];
+    ContainmentTestViewController *containmentTestViewController = [[ContainmentTestViewController alloc] init];
     [self displayContentViewController:containmentTestViewController];
 }
 
 - (IBAction)displayStretchable:(id)sender
 {
-    StretchableViewController *stretchableViewController = [[[StretchableViewController alloc] init] autorelease];
+    StretchableViewController *stretchableViewController = [[StretchableViewController alloc] init];
     [self displayContentViewController:stretchableViewController];
 }
 
 - (IBAction)displayFixedSize:(id)sender
 {
-    FixedSizeViewController *fixedSizeViewController = [[[FixedSizeViewController alloc] init] autorelease];
+    FixedSizeViewController *fixedSizeViewController = [[FixedSizeViewController alloc] init];
     [self displayContentViewController:fixedSizeViewController];
 }
 
 - (IBAction)displayHeavy:(id)sender
 {
-    HeavyViewController *heavyViewController = [[[HeavyViewController alloc] init] autorelease];
+    HeavyViewController *heavyViewController = [[HeavyViewController alloc] init];
     [self displayContentViewController:heavyViewController];
 }
 
 - (IBAction)displayPortraitOnly:(id)sender
 {
-    PortraitOnlyViewController *portraitOnlyViewController = [[[PortraitOnlyViewController alloc] init] autorelease];
+    PortraitOnlyViewController *portraitOnlyViewController = [[PortraitOnlyViewController alloc] init];
     [self displayContentViewController:portraitOnlyViewController];
 }
 
 - (IBAction)displayLandscapeOnly:(id)sender
 {
-    LandscapeOnlyViewController *landscapeOnlyViewController = [[[LandscapeOnlyViewController alloc] init] autorelease];
+    LandscapeOnlyViewController *landscapeOnlyViewController = [[LandscapeOnlyViewController alloc] init];
     [self displayContentViewController:landscapeOnlyViewController];
 }
 
 - (IBAction)hideWithModal:(id)sender
 {
-    MemoryWarningTestCoverViewController *memoryWarningTestCoverViewController = [[[MemoryWarningTestCoverViewController alloc] init] autorelease];
+    MemoryWarningTestCoverViewController *memoryWarningTestCoverViewController = [[MemoryWarningTestCoverViewController alloc] init];
     [self presentModalViewController:memoryWarningTestCoverViewController animated:YES];
 }
 
 - (IBAction)displayTransparent:(id)sender
 {
-    TransparentViewController *transparentViewController = [[[TransparentViewController alloc] init] autorelease];
+    TransparentViewController *transparentViewController = [[TransparentViewController alloc] init];
     [self displayContentViewController:transparentViewController];
 }
 
 - (IBAction)testInModal:(id)sender
 {
-    RootStackDemoViewController *rootStackDemoViewController = [[[RootStackDemoViewController alloc] init] autorelease];
-    HLSStackController *stackController = [[[HLSStackController alloc] initWithRootViewController:rootStackDemoViewController] autorelease];
+    RootStackDemoViewController *rootStackDemoViewController = [[RootStackDemoViewController alloc] init];
+    HLSStackController *stackController = [[HLSStackController alloc] initWithRootViewController:rootStackDemoViewController];
     // Benefits from the fact that we are already logging HLSStackControllerDelegate methods in this class
     stackController.delegate = self;
     [self presentModalViewController:stackController animated:YES];
@@ -458,12 +452,12 @@ typedef enum {
 
 - (IBAction)testInPopover:(id)sender
 {   
-    RootStackDemoViewController *rootStackDemoViewController = [[[RootStackDemoViewController alloc] init] autorelease];
-    HLSStackController *stackController = [[[HLSStackController alloc] initWithRootViewController:rootStackDemoViewController] autorelease];
+    RootStackDemoViewController *rootStackDemoViewController = [[RootStackDemoViewController alloc] init];
+    HLSStackController *stackController = [[HLSStackController alloc] initWithRootViewController:rootStackDemoViewController];
     // Benefits from the fact that we are already logging HLSStackControllerDelegate methods in this class
     stackController.delegate = self;
     stackController.contentSizeForViewInPopover = CGSizeMake(800.f, 600.);
-    self.displayedPopoverController = [[[UIPopoverController alloc] initWithContentViewController:stackController] autorelease];
+    self.displayedPopoverController = [[UIPopoverController alloc] initWithContentViewController:stackController];
     self.displayedPopoverController.delegate = self;
     [self.displayedPopoverController presentPopoverFromRect:self.popoverButton.bounds
                                                      inView:self.popoverButton
@@ -499,11 +493,11 @@ typedef enum {
 
 - (IBAction)testResponderChain:(id)sender
 {
-    UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:HLSLocalizedStringFromUIKit(@"OK")
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:HLSLocalizedStringFromUIKit(@"OK")
                                                          message:nil
                                                         delegate:nil
                                                cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
-                                               otherButtonTitles:nil] autorelease];
+                                               otherButtonTitles:nil];
     [alertView show];
 }
 
@@ -523,7 +517,7 @@ typedef enum {
 
 - (IBAction)navigateForwardNonAnimated:(id)sender
 {
-    StackDemoViewController *stackDemoViewController = [[[StackDemoViewController alloc] init] autorelease];
+    StackDemoViewController *stackDemoViewController = [[StackDemoViewController alloc] init];
     [self.navigationController pushViewController:stackDemoViewController animated:NO];
 }
 

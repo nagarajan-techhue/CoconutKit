@@ -83,7 +83,7 @@ static void swizzled_UINavigationBar__sendSubviewToBack_Imp(UINavigationBar *sel
         // Adding
         else {
             if (backgroundImage) {
-                UIImageView *backgroundImageView = [[[UIImageView alloc] initWithFrame:self.bounds] autorelease];
+                UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.bounds];
                 backgroundImageView.image = backgroundImage;
                 backgroundImageView.tag = kBackgroundImageViewTag;
                 backgroundImageView.contentMode = UIViewContentModeScaleToFill;

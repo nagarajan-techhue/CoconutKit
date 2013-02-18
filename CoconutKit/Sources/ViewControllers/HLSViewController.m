@@ -94,7 +94,6 @@
     HLSLoggerDebug(@"View controller %@ deallocated", self);
     [[NSNotificationCenter defaultCenter] removeObserver:self name:HLSCurrentLocalizationDidChangeNotification object:nil];
     [self releaseViews];
-    [super dealloc];
 }
 
 - (void)releaseViews

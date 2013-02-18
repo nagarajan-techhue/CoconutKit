@@ -10,7 +10,7 @@
 
 __attribute__ ((constructor)) static void HLSStandardFileManagerInstall(void)
 {
-    HLSStandardFileManager *fileManager = [[[HLSStandardFileManager alloc] init] autorelease];
+    HLSStandardFileManager *fileManager = [[HLSStandardFileManager alloc] init];
     [HLSFileManager setDefaultManager:fileManager];
 }
 

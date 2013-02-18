@@ -87,7 +87,6 @@ static HLSKeyboardInformation *s_instance = nil;
 + (void)keyboardWillHide:(NSNotification *)notification
 {
     HLSLoggerDebug(@"Keyboard hidden");
-    [s_instance release];
     s_instance = nil;
 }
 

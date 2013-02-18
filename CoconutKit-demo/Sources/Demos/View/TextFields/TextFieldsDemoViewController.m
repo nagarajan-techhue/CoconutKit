@@ -10,10 +10,10 @@
 
 @interface TextFieldsDemoViewController ()
 
-@property (nonatomic, retain) IBOutlet HLSTextField *textField1;
-@property (nonatomic, retain) IBOutlet HLSTextField *textField2;
-@property (nonatomic, retain) IBOutlet HLSTextField *textField3;
-@property (nonatomic, retain) IBOutlet HLSTextField *textField4;
+@property (nonatomic, weak) IBOutlet HLSTextField *textField1;
+@property (nonatomic, weak) IBOutlet HLSTextField *textField2;
+@property (nonatomic, weak) IBOutlet HLSTextField *textField3;
+@property (nonatomic, weak) IBOutlet HLSTextField *textField4;
 
 @end
 

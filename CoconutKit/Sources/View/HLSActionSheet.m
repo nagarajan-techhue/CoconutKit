@@ -20,9 +20,9 @@ static HLSActionSheet *s_previousActionSheet = nil;                 // weak ref 
 
 @interface HLSActionSheet () <UIActionSheetDelegate>
 
-@property (nonatomic, retain) NSArray *targets;
-@property (nonatomic, retain) NSArray *actions;
-@property (nonatomic, assign) id<UIActionSheetDelegate> realDelegate;
+@property (nonatomic, strong) NSArray *targets;
+@property (nonatomic, strong) NSArray *actions;
+@property (nonatomic, weak) id<UIActionSheetDelegate> realDelegate;
 
 @end
 
@@ -88,11 +88,8 @@ destructiveButtonTitle:(NSString *)destructiveButtonTitle
 
 - (void)dealloc
 {
-    self.targets = nil;
-    self.actions = nil;
     self.realDelegate = nil;
     
-    [super dealloc];
 }
 
 #pragma mark Accessors and mutators

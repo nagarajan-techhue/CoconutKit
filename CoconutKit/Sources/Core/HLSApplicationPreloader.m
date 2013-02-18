@@ -25,7 +25,7 @@ static BOOL swizzled_UIApplicationDelegate__application_didFinishLaunchingWithOp
 
 @interface HLSApplicationPreloader ()
 
-@property (nonatomic, assign) UIApplication *application;           // weak ref since retained by the application
+@property (nonatomic, weak) UIApplication *application;           // weak ref since retained by the application
 
 @end
 
@@ -70,7 +70,7 @@ static BOOL swizzled_UIApplicationDelegate__application_didFinishLaunchingWithOp
     }
     free(classes);
     
-    s_classNameToSwizzledApplicationDidFinishLaunchingWithOptionsImpMap = [[NSDictionary dictionaryWithDictionary:classNameToSwizzledApplicationDidFinishLaunchingWithOptionsImpMap] retain];
+    s_classNameToSwizzledApplicationDidFinishLaunchingWithOptionsImpMap = [NSDictionary dictionaryWithDictionary:classNameToSwizzledApplicationDidFinishLaunchingWithOptionsImpMap];
     
     s_enabled = YES;
 }
@@ -95,7 +95,6 @@ static BOOL swizzled_UIApplicationDelegate__application_didFinishLaunchingWithOp
 {
     self.application = nil;
 
-    [super dealloc];
 }
 
 #pragma mark Pre-loading
@@ -132,7 +131,6 @@ static BOOL swizzled_UIApplicationDelegate__application_didFinishLaunchingWithOp
 {
     // The web view is not needed anymore
     [webView removeFromSuperview];
-    [webView release];
 }
 
 @end
@@ -152,7 +150,7 @@ static BOOL swizzled_UIApplicationDelegate__application_didFinishLaunchingWithOp
     }
     
     // Install the preloader
-    HLSApplicationPreloader *applicationPreloader = [[[HLSApplicationPreloader alloc] initWithApplication:application] autorelease];
+    HLSApplicationPreloader *applicationPreloader = [[HLSApplicationPreloader alloc] initWithApplication:application];
     objc_setAssociatedObject(self, s_applicationPreloaderKey, applicationPreloader, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [applicationPreloader preload];
     

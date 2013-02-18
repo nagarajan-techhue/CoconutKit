@@ -157,7 +157,7 @@ extern const NSUInteger HLSContainerStackUnlimitedCapacity;
  * view controller's view hierarchy and cannot be set once it has been displayed (in general, though, you need to
  * set it once in the container view controller -loadView or -viewDidLoad method)
  */
-@property (nonatomic, retain) UIView *containerView;
+@property (nonatomic, strong) UIView *containerView;
 
 /**
  * Set how a container decides whether it must rotate or not. Your containers should in general exhibit a similar 
@@ -179,7 +179,7 @@ extern const NSUInteger HLSContainerStackUnlimitedCapacity;
 /**
  * The stack delegate (usually the container view controller you are implementing)
  */
-@property (nonatomic, assign) id<HLSContainerStackDelegate> delegate;
+@property (nonatomic, weak) id<HLSContainerStackDelegate> delegate;
 
 /**
  * Return the root view controller loaded into the stack, or nil if none

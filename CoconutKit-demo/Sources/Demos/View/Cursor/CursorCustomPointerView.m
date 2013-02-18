@@ -12,11 +12,5 @@
 
 #pragma mark Object creation and destruction
 
-- (void)dealloc
-{
-    self.valueLabel = nil;
-    
-    [super dealloc];
-}
 
 @end

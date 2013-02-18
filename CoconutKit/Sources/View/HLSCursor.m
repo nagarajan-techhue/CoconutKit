@@ -18,10 +18,10 @@
 
 @interface HLSCursor ()
 
-@property (nonatomic, retain) NSArray *elementWrapperViews;
-@property (nonatomic, retain) NSArray *elementWrapperViewSizeValues;
+@property (nonatomic, strong) NSArray *elementWrapperViews;
+@property (nonatomic, strong) NSArray *elementWrapperViewSizeValues;
 
-@property (nonatomic, retain) UIView *pointerContainerView;
+@property (nonatomic, strong) UIView *pointerContainerView;
 
 @end
 
@@ -59,16 +59,11 @@
 
 - (void)dealloc
 {
-    self.elementWrapperViews = nil;
-    self.elementWrapperViewSizeValues = nil;
     
     // Very special case here. Cannot use the property since it cannot change the pointer view once set!
-    [_pointerView release];
     
-    self.pointerContainerView = nil;
     self.dataSource = nil;
     
-    [super dealloc];
 }
 
 - (void)hlsCursorInit
@@ -87,7 +82,7 @@
         return;
     }
     
-    _pointerView = [pointerView retain];
+    _pointerView = pointerView;
 }
 
 #pragma mark Layout
@@ -169,7 +164,7 @@
         // If no custom pointer view specified, create a default one
         if (! self.pointerView) {
             UIImage *pointerImage = [UIImage imageNamed:@"CoconutKit-resources.bundle/CursorDefaultPointer.png"];
-            UIImageView *imageView = [[[UIImageView alloc] initWithImage:pointerImage] autorelease];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:pointerImage];
             imageView.contentStretch = CGRectMake(0.5f,
                                                   0.5f,
                                                   1.f / CGRectGetWidth(imageView.frame),
@@ -183,7 +178,7 @@
         }
         
         // Create a view to container the pointer view. This avoid issues with transparent pointer views
-        self.pointerContainerView = [[[UIView alloc] initWithFrame:self.pointerView.bounds] autorelease];
+        self.pointerContainerView = [[UIView alloc] initWithFrame:self.pointerView.bounds];
         self.pointerView.frame = self.pointerContainerView.bounds;
         self.pointerContainerView.backgroundColor = [UIColor clearColor];
         self.pointerContainerView.autoresizesSubviews = YES;
@@ -261,11 +256,10 @@
         // states
         CGSize titleSize = [title sizeWithFont:font];
         CGSize otherTitleSize = [title sizeWithFont:otherFont];
-        UILabel *elementLabel = [[[UILabel alloc] initWithFrame:CGRectMake(0.f,
+        UILabel *elementLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.f,
                                                                            0.f,
                                                                            floatmax(titleSize.width, otherTitleSize.width),
-                                                                           floatmax(titleSize.height, otherTitleSize.height))]
-                                 autorelease];
+                                                                           floatmax(titleSize.height, otherTitleSize.height))];
         elementLabel.text = title;
         elementLabel.backgroundColor = [UIColor clearColor];
         elementLabel.font = font;
@@ -294,10 +288,10 @@
         return nil;
     }
     
-    UIView *wrapperView = [[[UIView alloc] initWithFrame:CGRectMake(0.f,
+    UIView *wrapperView = [[UIView alloc] initWithFrame:CGRectMake(0.f,
                                                                     0.f,
                                                                     floatmax(CGRectGetWidth(elementView.frame), CGRectGetWidth(selectedElementView.frame)),
-                                                                    floatmax(CGRectGetHeight(elementView.frame), CGRectGetHeight(selectedElementView.frame)))] autorelease];
+                                                                    floatmax(CGRectGetHeight(elementView.frame), CGRectGetHeight(selectedElementView.frame)))];
     wrapperView.backgroundColor = [UIColor clearColor];
     
     [wrapperView addSubview:elementView];

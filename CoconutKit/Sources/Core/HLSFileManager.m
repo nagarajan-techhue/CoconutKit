@@ -20,8 +20,8 @@ static HLSFileManager *s_defaultManager = nil;
 + (HLSFileManager *)setDefaultManager:(HLSFileManager *)defaultManager
 {
     @synchronized(self) {
-        HLSFileManager *previousManager = [s_defaultManager autorelease];
-        s_defaultManager = [defaultManager retain];
+        HLSFileManager *previousManager = s_defaultManager;
+        s_defaultManager = defaultManager;
         return previousManager;
     }
 }

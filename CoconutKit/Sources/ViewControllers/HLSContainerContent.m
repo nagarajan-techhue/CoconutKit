@@ -39,11 +39,11 @@ static BOOL iOS4_UIViewController__isMovingFromParentViewController_Imp(UIViewCo
 
 @interface HLSContainerContent ()
 
-@property (nonatomic, retain) UIViewController *viewController;                 // The embedded view controller
-@property (nonatomic, assign) UIViewController *containerViewController;        // The container it is inserted into (weak ref)
-@property (nonatomic, assign) Class transitionClass;                            // The transition animation class used when inserting the view controller
+@property (nonatomic, strong) UIViewController *viewController;                 // The embedded view controller
+@property (nonatomic, weak) UIViewController *containerViewController;        // The container it is inserted into (weak ref)
+@property (nonatomic, weak) Class transitionClass;                            // The transition animation class used when inserting the view controller
 @property (nonatomic, assign) NSTimeInterval duration;                          // The transition animation duration
-@property (nonatomic, assign) HLSContainerStackView *containerStackView;        // The container stack view into which the view controller's view is inserted (weak ref)
+@property (nonatomic, weak) HLSContainerStackView *containerStackView;        // The container stack view into which the view controller's view is inserted (weak ref)
 @property (nonatomic, assign) CGRect originalViewFrame;                         // The view controller's view frame prior to insertion
 @property (nonatomic, assign) UIViewAutoresizing originalAutoresizingMask;      // The view controller's view autoresizing mask prior to insertion
 @property (nonatomic, assign) BOOL movingToParentViewController;
@@ -102,13 +102,11 @@ static BOOL iOS4_UIViewController__isMovingFromParentViewController_Imp(UIViewCo
     if ((self = [super init])) {
         if (! viewController) {
             HLSLoggerError(@"A view controller is mandatory");
-            [self release];
             return nil;
         }
         
         if (! containerViewController) {
             HLSLoggerError(@"A container view controller must be provided");
-            [self release];
             return nil;
         }
         
@@ -126,7 +124,6 @@ static BOOL iOS4_UIViewController__isMovingFromParentViewController_Imp(UIViewCo
                     && [containerViewController shouldAutomaticallyForwardRotationMethods])) {
             HLSLoggerError(@"HLSContainerContent can only be used to implement containers for which view lifecycle and rotation event automatic "
                            "forwarding has been explicitly disabled (iOS 5 and 6)");
-            [self release];
             return nil;
         }
         
@@ -142,7 +139,6 @@ static BOOL iOS4_UIViewController__isMovingFromParentViewController_Imp(UIViewCo
         // Associate the view controller with its container content object        
         if (objc_getAssociatedObject(viewController, s_containerContentKey)) {
             HLSLoggerError(@"A view controller can only be associated with one container");
-            [self release];
             return nil;
         }
         objc_setAssociatedObject(viewController, s_containerContentKey, self, OBJC_ASSOCIATION_ASSIGN);
@@ -202,10 +198,8 @@ static BOOL iOS4_UIViewController__isMovingFromParentViewController_Imp(UIViewCo
         [self.viewController removeFromParentViewController];
     }
     
-    self.viewController = nil;
     self.containerViewController = nil;
     
-    [super dealloc];
 }
 
 #pragma mark Accessors and mutators

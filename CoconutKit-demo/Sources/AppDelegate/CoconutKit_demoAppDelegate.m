@@ -21,7 +21,7 @@ HLSEnableApplicationPreloading();
 
 @interface CoconutKit_demoAppDelegate ()
 
-@property (nonatomic, retain) CoconutKit_demoApplication *application;
+@property (nonatomic, strong) CoconutKit_demoApplication *application;
 
 @end
 
@@ -29,12 +29,6 @@ HLSEnableApplicationPreloading();
 
 #pragma mark Object construction and destruction
 
-- (void)dealloc
-{
-    self.application = nil;
-    self.window = nil;
-    [super dealloc];
-}
 
 #pragma mark Accessors and mutators
 
@@ -49,7 +43,7 @@ HLSEnableApplicationPreloading();
     // Instead of using the UIAppFonts key in the plist to load the Beon font, do it in code
     [UIFont loadFontWithFileName:@"Beon-Regular.otf" inBundle:nil];
     
-    self.application = [[[CoconutKit_demoApplication alloc] init] autorelease];
+    self.application = [[CoconutKit_demoApplication alloc] init];
     self.window.rootViewController = [self.application rootViewController];
     
     return YES;

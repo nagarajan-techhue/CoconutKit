@@ -15,9 +15,9 @@
 
 @interface HLSModelManager ()
 
-@property (nonatomic, retain) NSManagedObjectModel *managedObjectModel;
-@property (nonatomic, retain) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @end
 
@@ -31,12 +31,12 @@
                                      storeDirectory:(NSString *)storeDirectory
                                             options:(NSDictionary *)options
 {
-    return [[[[self class] alloc] initWithModelFileName:modelFileName
+    return [[[self class] alloc] initWithModelFileName:modelFileName
                                                inBundle:bundle
                                               storeType:NSSQLiteStoreType
                                           configuration:configuration
                                          storeDirectory:storeDirectory 
-                                                options:options] autorelease];
+                                                options:options];
 }
 
 + (HLSModelManager *)inMemoryModelManagerWithModelFileName:(NSString *)modelFileName
@@ -44,12 +44,12 @@
                                              configuration:(NSString *)configuration 
                                                    options:(NSDictionary *)options
 {
-    return [[[[self class] alloc] initWithModelFileName:modelFileName
+    return [[[self class] alloc] initWithModelFileName:modelFileName
                                                inBundle:bundle
                                               storeType:NSInMemoryStoreType 
                                           configuration:configuration 
                                          storeDirectory:nil 
-                                                options:options] autorelease];
+                                                options:options];
 }
 
 + (HLSModelManager *)binaryModelManagerWithModelFileName:(NSString *)modelFileName
@@ -58,12 +58,12 @@
                                           storeDirectory:(NSString *)storeDirectory
                                                  options:(NSDictionary *)options
 {
-    return [[[[self class] alloc] initWithModelFileName:modelFileName
+    return [[[self class] alloc] initWithModelFileName:modelFileName
                                                inBundle:(NSBundle *)bundle
                                               storeType:NSBinaryStoreType
                                           configuration:configuration 
                                          storeDirectory:storeDirectory 
-                                                options:options] autorelease];
+                                                options:options];
 }
 
 + (NSString *)storeFilePathForModelFileName:(NSString *)modelFileName storeDirectory:(NSString *)storeDirectory
@@ -229,7 +229,6 @@
     if ((self = [super init])) {
         self.managedObjectModel = [self managedObjectModelFromModelFileName:modelFileName inBundle:bundle];
         if (! self.managedObjectModel) {
-            [self release];
             return nil;
         }
         
@@ -246,27 +245,17 @@
                                                                                             URL:standardStoreURL
                                                                                         options:options];
         if (! self.persistentStoreCoordinator) {
-            [self release];
             return nil;
         }
         
         self.managedObjectContext = [self managedObjectContextForPersistentStoreCoordinator:self.persistentStoreCoordinator];
         if (! self.managedObjectContext) {
-            [self release];
             return nil;
         }
     }
     return self;
 }
 
-- (void)dealloc
-{
-    self.managedObjectModel = nil;
-    self.persistentStoreCoordinator = nil;
-    self.managedObjectContext = nil;
-    
-    [super dealloc];
-}
 
 #pragma mark Initialization
 
@@ -283,7 +272,7 @@
     }
     
     NSURL *modelFileURL = [NSURL fileURLWithPath:modelFilePath];
-    return [[[NSManagedObjectModel alloc] initWithContentsOfURL:modelFileURL] autorelease];
+    return [[NSManagedObjectModel alloc] initWithContentsOfURL:modelFileURL];
 }
 
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinatorForManagedObjectModel:(NSManagedObjectModel *)managedObjectModel
@@ -292,7 +281,7 @@
                                                                               URL:(NSURL *)storeURL 
                                                                           options:(NSDictionary *)options
 {
-    NSPersistentStoreCoordinator *persistentStoreCoordinator = [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:managedObjectModel] autorelease];
+    NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:managedObjectModel];
     
 	NSError *error = nil;
     NSPersistentStore *persistentStore = [persistentStoreCoordinator addPersistentStoreWithType:storeType
@@ -324,7 +313,7 @@
 
 - (NSManagedObjectContext *)managedObjectContextForPersistentStoreCoordinator:(NSPersistentStoreCoordinator *)persistentStoreCoordinator
 {
-    NSManagedObjectContext *managedObjectContext = [[[NSManagedObjectContext alloc] init] autorelease];
+    NSManagedObjectContext *managedObjectContext = [[NSManagedObjectContext alloc] init];
     [managedObjectContext setPersistentStoreCoordinator:persistentStoreCoordinator];
     
     return managedObjectContext;
@@ -335,7 +324,7 @@
 - (HLSModelManager *)duplicate
 {
     // Duplicate the context, the rest is the same
-    HLSModelManager *modelManager = [[[HLSModelManager alloc] init] autorelease];
+    HLSModelManager *modelManager = [[HLSModelManager alloc] init];
     modelManager.managedObjectContext = [self managedObjectContextForPersistentStoreCoordinator:self.persistentStoreCoordinator];
     modelManager.managedObjectModel = self.managedObjectModel;
     modelManager.persistentStoreCoordinator = self.persistentStoreCoordinator;

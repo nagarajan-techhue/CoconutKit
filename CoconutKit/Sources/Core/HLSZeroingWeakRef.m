@@ -20,8 +20,8 @@ static Class subclass_class(id object, SEL _cmd);
 
 @interface HLSZeroingWeakRef ()
 
-@property (nonatomic, assign) id object;
-@property (nonatomic, retain) NSMutableArray *invocations;
+@property (nonatomic, weak) id object;
+@property (nonatomic, strong) NSMutableArray *invocations;
 
 @end
 
@@ -60,11 +60,14 @@ static Class subclass_class(id object, SEL _cmd);
                 if (! subclass) {
                     subclass = objc_allocateClassPair(class, [subclassName UTF8String], 0);
                     NSAssert(subclass != Nil, @"Could not register subclass");
-                    class_addMethod(subclass, 
+                    // FIXME: ARC
+#if 0
+                    class_addMethod(subclass,
                                     @selector(dealloc), 
                                     (IMP)subclass_dealloc, 
                                     method_getTypeEncoding(class_getInstanceMethod(class, @selector(dealloc))));
-                    class_addMethod(subclass, 
+#endif
+                    class_addMethod(subclass,
                                     @selector(class), 
                                     (IMP)subclass_class, 
                                     method_getTypeEncoding(class_getClassMethod(class, @selector(class))));
@@ -101,9 +104,7 @@ static Class subclass_class(id object, SEL _cmd);
     }
     
     self.object = nil;
-    self.invocations = nil;
     
-    [super dealloc];
 }
 
 #pragma mark Optional cleanup
@@ -141,10 +142,13 @@ static void subclass_dealloc(id object, SEL _cmd)
     }
     
     // Call parent implementation
+    // FIXME: ARC
+#if 0
     Class superclass = class_getSuperclass(object_getClass(object));
     void (*parent_dealloc_Imp)(id, SEL) = (void (*)(id, SEL))class_getMethodImplementation(superclass, @selector(dealloc));
     NSCAssert(parent_dealloc_Imp != NULL, @"Could not locate parent dealloc implementation");
     (*parent_dealloc_Imp)(object, _cmd);
+#endif
 }
 
 static Class subclass_class(id object, SEL _cmd)

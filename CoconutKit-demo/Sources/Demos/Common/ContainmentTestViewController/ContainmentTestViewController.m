@@ -12,7 +12,7 @@
 
 @interface ContainmentTestViewController ()
 
-@property (nonatomic, retain) IBOutlet UISwitch *presentingModalSwitch;
+@property (nonatomic, weak) IBOutlet UISwitch *presentingModalSwitch;
 
 @end
 
@@ -139,7 +139,7 @@
 - (IBAction)hideWithModal:(id)sender
 {
     // Just to test -parentViewController (if correct, then the topmost container will be presenting the modal)
-    MemoryWarningTestCoverViewController *memoryWarningTestCoverViewController = [[[MemoryWarningTestCoverViewController alloc] init] autorelease];
+    MemoryWarningTestCoverViewController *memoryWarningTestCoverViewController = [[MemoryWarningTestCoverViewController alloc] init];
     memoryWarningTestCoverViewController.modalPresentationStyle = self.presentingModalSwitch.on ? UIModalPresentationCurrentContext : UIModalPresentationFullScreen;
     [self presentModalViewController:memoryWarningTestCoverViewController animated:YES];
 }

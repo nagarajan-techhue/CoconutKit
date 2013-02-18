@@ -44,7 +44,7 @@ typedef enum {
 
 @interface TableViewCellsDemoViewController ()
 
-@property (nonatomic, retain) UITableView *tableView;
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
@@ -54,7 +54,7 @@ typedef enum {
 
 - (void)loadView
 {
-    self.tableView = [[[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain] autorelease];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.view = self.tableView;

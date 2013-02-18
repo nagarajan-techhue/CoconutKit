@@ -87,17 +87,17 @@
  * -[HLSContainerContent viewIfLoaded] accessor to access a view which you created this way (and which does not
  * instantiate the view lazily).
  */
-@property (nonatomic, readonly, retain) UIViewController *viewController;
+@property (nonatomic, readonly, strong) UIViewController *viewController;
 
 /**
  * The container into which a view controller has been inserted
  */
-@property (nonatomic, readonly, assign) UIViewController *containerViewController;
+@property (nonatomic, readonly, weak) UIViewController *containerViewController;
 
 /**
  * The transition properties to be applied when the view controller's view gets displayed
  */
-@property (nonatomic, readonly, assign) Class transitionClass;
+@property (nonatomic, readonly, weak) Class transitionClass;
 @property (nonatomic, readonly, assign) NSTimeInterval duration;
 
 /**

@@ -22,12 +22,12 @@
 @interface NotificationSender : NSObject {
 @private
     NSString *_notificationName;
-    id _object;
+    __unsafe_unretained id _object;
 }
 
 - (id)initWithNotificationName:(NSString *)notificationName forObject:(id)object;
 
-@property (nonatomic, retain) NSString *notificationName;
+@property (nonatomic, strong) NSString *notificationName;
 @property (nonatomic, assign) id object;
 
 @end
@@ -37,7 +37,7 @@
 
 @interface HLSNotificationConverter ()
 
-@property (nonatomic, retain) NSMutableDictionary *objectToNotificationMap;
+@property (nonatomic, strong) NSMutableDictionary *objectToNotificationMap;
 
 @end
 
@@ -120,9 +120,7 @@
 
 - (void)dealloc
 {
-    self.notificationName = nil;
     self.object = nil;
-    [super dealloc];
 }
 
 @end
@@ -154,11 +152,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    self.objectToNotificationMap = nil;
-    [super dealloc];
-}
 
 #pragma mark (Un)registering conversion rules
 
@@ -178,7 +171,7 @@
     // Get the associated notification map, or create it if it does not exist
     NSMutableDictionary *notificationMap = [self.objectToNotificationMap objectForKey:fromIdentifier];
     if (! notificationMap) {
-        notificationMap = [[[NSMutableDictionary alloc] initWithCapacity:1] autorelease];
+        notificationMap = [[NSMutableDictionary alloc] initWithCapacity:1];
         [self.objectToNotificationMap setObject:notificationMap forKey:fromIdentifier];
     }
     
@@ -188,9 +181,8 @@
     }
     
     // Create the rule object describing the new receiver
-    NotificationSender *toSender = [[[NotificationSender alloc] initWithNotificationName:notificationNameTo
-                                                                               forObject:objectTo]
-                                    autorelease];
+    NotificationSender *toSender = [[NotificationSender alloc] initWithNotificationName:notificationNameTo
+                                                                               forObject:objectTo];
     
     // Add the new rule
     [notificationMap setObject:toSender forKey:notificationNameFrom];

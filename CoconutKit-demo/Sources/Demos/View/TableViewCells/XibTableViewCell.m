@@ -12,12 +12,6 @@
 
 #pragma mark Object creation and destruction
 
-- (void)dealloc
-{
-    self.testImageView = nil;
-    self.testLabel = nil;
-    [super dealloc];
-}
 
 #pragma mark Cell customisation
 

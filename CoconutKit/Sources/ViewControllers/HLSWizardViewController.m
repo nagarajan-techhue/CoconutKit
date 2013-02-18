@@ -54,9 +54,7 @@ static const NSInteger kWizardViewControllerNoPage = -1;
 
 - (void)dealloc
 {
-    self.viewControllers = nil;
     self.delegate = nil;
-    [super dealloc];
 }
 
 - (void)releaseViews
@@ -99,8 +97,7 @@ static const NSInteger kWizardViewControllerNoPage = -1;
     }
     
     // Update the value
-    [_viewControllers release];
-    _viewControllers = [viewControllers retain];
+    _viewControllers = viewControllers;
     
     // Start with the first page
     if ([_viewControllers count] > 0) {

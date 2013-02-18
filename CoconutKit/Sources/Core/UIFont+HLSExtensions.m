@@ -26,6 +26,8 @@
 
 + (BOOL)loadFontWithData:(NSData *)data
 {
+    // FIXME: ARC
+#if 0
     // See http://www.marco.org/2012/12/21/ios-dynamic-font-loading
     CFErrorRef error = NULL;
     CGDataProviderRef provider = CGDataProviderCreateWithCFData((CFDataRef)data);
@@ -39,7 +41,7 @@
     }
     CFRelease(font);
     CFRelease(provider);
-    
+#endif
     return YES;
 }
 

@@ -52,7 +52,7 @@
  * The search bar is created and managed for you, but you can use this accessor for customizing it if needed. This search bar is available
  * once the view has been loaded (viewDidLoad or later in the view lifecycle)
  */
-@property (nonatomic, readonly, retain) UISearchBar *searchBar;
+@property (nonatomic, readonly, strong) UISearchBar *searchBar;
 
 /**
  * The table view displaying all entries when the search interface is inactive
@@ -61,11 +61,11 @@
  * You never need to (and therefore should) call reloadData on this table view manually, the HLSTableSearchDisplayViewController view controller
  * will take care of this for you.
  */
-@property (nonatomic, retain) IBOutlet UITableView *tableView;
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
 
 /**
  * The table view displaying the entries matching a search criterium
  */
-@property (nonatomic, readonly, assign) UITableView *searchResultsTableView;
+@property (nonatomic, readonly, weak) UITableView *searchResultsTableView;
 
 @end

@@ -20,18 +20,18 @@
 
 @interface HLSWebViewController ()
 
-@property (nonatomic, retain) NSURLRequest *request;
-@property (nonatomic, retain) NSURL *currentURL;
+@property (nonatomic, strong) NSURLRequest *request;
+@property (nonatomic, strong) NSURL *currentURL;
 
-@property (nonatomic, retain) UIImage *refreshImage;
+@property (nonatomic, strong) UIImage *refreshImage;
 
-@property (nonatomic, retain) IBOutlet UIWebView *webView;
-@property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
-@property (nonatomic, retain) IBOutlet UIBarButtonItem *goBackBarButtonItem;
-@property (nonatomic, retain) IBOutlet UIBarButtonItem *goForwardBarButtonItem;
-@property (nonatomic, retain) IBOutlet UIBarButtonItem *refreshBarButtonItem;
-@property (nonatomic, retain) IBOutlet UIBarButtonItem *actionBarButtonItem;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, weak) IBOutlet UIWebView *webView;
+@property (nonatomic, weak) IBOutlet UIToolbar *toolbar;
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *goBackBarButtonItem;
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *goForwardBarButtonItem;
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *refreshBarButtonItem;
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *actionBarButtonItem;
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -47,13 +47,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    self.request = nil;
-    self.currentURL = nil;
-    
-    [super dealloc];
-}
 
 - (void)releaseViews
 {
@@ -199,11 +192,11 @@
     // We can also encounter other types of errors here (e.g. if a user clicks on two links consecutively on the same page. 
     // The first request is cancelled and ends with NSURLErrorCancelled)
     if ([error hasCode:NSURLErrorNotConnectedToInternet withinDomain:NSURLErrorDomain]) {
-        UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"Cannot Open Page", @"Localizable", [NSBundle coconutKitBundle], nil)
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"Cannot Open Page", @"Localizable", [NSBundle coconutKitBundle], nil)
                                                              message:NSLocalizedStringFromTableInBundle(@"No Internet connection is available", @"Localizable", [NSBundle coconutKitBundle], nil)
                                                             delegate:nil 
                                                    cancelButtonTitle:HLSLocalizedStringFromUIKit(@"OK") 
-                                                   otherButtonTitles:nil] autorelease];
+                                                   otherButtonTitles:nil];
         [alertView show];
     }
 }
@@ -240,7 +233,7 @@
 
 - (IBAction)displayActionSheet:(id)sender
 {    
-    HLSActionSheet *actionSheet = [[[HLSActionSheet alloc] init] autorelease];
+    HLSActionSheet *actionSheet = [[HLSActionSheet alloc] init];
     actionSheet.title = [self.currentURL absoluteString];
     [actionSheet addButtonWithTitle:NSLocalizedStringFromTableInBundle(@"Open in Safari", @"Localizable", [NSBundle coconutKitBundle], nil)
                              target:self
@@ -265,7 +258,7 @@
 
 - (void)mailLink:(id)sender
 {
-    MFMailComposeViewController *mailComposeViewController = [[[MFMailComposeViewController alloc] init] autorelease];
+    MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];
     mailComposeViewController.mailComposeDelegate = self;
     [mailComposeViewController setSubject:self.title];
     [mailComposeViewController setMessageBody:[[self.webView.request URL] absoluteString] isHTML:NO];

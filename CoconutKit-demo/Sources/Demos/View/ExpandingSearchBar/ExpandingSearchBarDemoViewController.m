@@ -10,11 +10,11 @@
 
 @interface ExpandingSearchBarDemoViewController ()
 
-@property (nonatomic, retain) IBOutlet HLSExpandingSearchBar *searchBar1;
-@property (nonatomic, retain) IBOutlet HLSExpandingSearchBar *searchBar2;
-@property (nonatomic, retain) IBOutlet HLSExpandingSearchBar *searchBar3;
+@property (nonatomic, weak) IBOutlet HLSExpandingSearchBar *searchBar1;
+@property (nonatomic, weak) IBOutlet HLSExpandingSearchBar *searchBar2;
+@property (nonatomic, weak) IBOutlet HLSExpandingSearchBar *searchBar3;
 
-@property (nonatomic, retain) IBOutlet UISwitch *animatedSwitch;
+@property (nonatomic, weak) IBOutlet UISwitch *animatedSwitch;
 
 @end
 

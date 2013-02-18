@@ -21,8 +21,8 @@
         self.delegate = self;
         self.wizardTransitionStyle = HLSWizardTransitionStylePushHorizontally; 
         
-        WizardIdentityPageViewController *wizardIdentityPageController = [[[WizardIdentityPageViewController alloc] init] autorelease];
-        WizardAddressPageViewController *wizardAddressPageController = [[[WizardAddressPageViewController alloc] init] autorelease];
+        WizardIdentityPageViewController *wizardIdentityPageController = [[WizardIdentityPageViewController alloc] init];
+        WizardAddressPageViewController *wizardAddressPageController = [[WizardAddressPageViewController alloc] init];
         self.viewControllers = [NSArray arrayWithObjects:wizardIdentityPageController,
                                                     wizardAddressPageController,
                                                     nil];

@@ -13,7 +13,7 @@
 
 @interface HLSTextFieldInternalDelegate ()
 
-@property (nonatomic, assign) UITextField *textField;       // weak ref. Detector lifetime is managed by the text field
+@property (nonatomic, weak) UITextField *textField;       // weak ref. Detector lifetime is managed by the text field
 
 @end
 
@@ -52,7 +52,6 @@
     self.textField = nil;
     self.delegate = nil;
     
-    [super dealloc];
 }
 
 #pragma mark UITextFieldDelegate protocol implementation

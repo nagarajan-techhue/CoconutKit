@@ -22,7 +22,7 @@ typedef enum {
 
 - (id)initWithName:(NSString *)name type:(DeviceType)type;
 
-@property (nonatomic, readonly, retain) NSString *name;
+@property (nonatomic, readonly, strong) NSString *name;
 @property (nonatomic, readonly, assign) DeviceType type;
 
 @end

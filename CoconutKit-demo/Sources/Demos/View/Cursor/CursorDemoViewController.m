@@ -20,17 +20,17 @@ static NSArray *s_folders = nil;
 
 @interface CursorDemoViewController ()
 
-@property (nonatomic, retain) UIPopoverController *currentPopoverController;
+@property (nonatomic, strong) UIPopoverController *currentPopoverController;
 
-@property (nonatomic, retain) IBOutlet HLSCursor *weekDaysCursor;
-@property (nonatomic, retain) IBOutlet UILabel *weekDayIndexLabel;
-@property (nonatomic, retain) IBOutlet HLSCursor *randomRangeCursor;
-@property (nonatomic, retain) IBOutlet UILabel *randomRangeIndexLabel;
-@property (nonatomic, retain) IBOutlet UISlider *widthFactorSlider;
-@property (nonatomic, retain) IBOutlet UISlider *heightFactorSlider;
-@property (nonatomic, retain) IBOutlet HLSCursor *timeScalesCursor;
-@property (nonatomic, retain) IBOutlet HLSCursor *foldersCursor;
-@property (nonatomic, retain) IBOutlet HLSCursor *mixedFoldersCursor;
+@property (nonatomic, weak) IBOutlet HLSCursor *weekDaysCursor;
+@property (nonatomic, weak) IBOutlet UILabel *weekDayIndexLabel;
+@property (nonatomic, weak) IBOutlet HLSCursor *randomRangeCursor;
+@property (nonatomic, weak) IBOutlet UILabel *randomRangeIndexLabel;
+@property (nonatomic, weak) IBOutlet UISlider *widthFactorSlider;
+@property (nonatomic, weak) IBOutlet UISlider *heightFactorSlider;
+@property (nonatomic, weak) IBOutlet HLSCursor *timeScalesCursor;
+@property (nonatomic, weak) IBOutlet HLSCursor *foldersCursor;
+@property (nonatomic, weak) IBOutlet HLSCursor *mixedFoldersCursor;
 
 @end
 
@@ -43,20 +43,14 @@ static NSArray *s_folders = nil;
 
 + (void)initialize
 {
-    s_weekDays = [[NSDateFormatter orderedWeekdaySymbols] retain];    
-    s_completeRange = [[NSArray arrayWithObjects:@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10",
-                      @"11", @"12", @"13", @"14", @"15", @"16", nil] retain];
-    s_folders = [[NSArray arrayWithObjects:@"A-F", @"G-L", @"M-R", @"S-Z", nil] retain];
+    s_weekDays = [NSDateFormatter orderedWeekdaySymbols];    
+    s_completeRange = [NSArray arrayWithObjects:@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10",
+                      @"11", @"12", @"13", @"14", @"15", @"16", nil];
+    s_folders = [NSArray arrayWithObjects:@"A-F", @"G-L", @"M-R", @"S-Z", nil];
 }
 
 #pragma mark Object creation and destruction
 
-- (void)dealloc
-{
-    self.currentPopoverController = nil;
-    
-    [super dealloc];
-}
 
 - (void)releaseViews
 {
@@ -290,8 +284,8 @@ static NSArray *s_folders = nil;
     
     if (cursor == self.randomRangeCursor) {
         if (! self.currentPopoverController) {
-            CursorPointerInfoViewController *infoViewController = [[[CursorPointerInfoViewController alloc] init] autorelease];
-            self.currentPopoverController = [[[UIPopoverController alloc] initWithContentViewController:infoViewController] autorelease];
+            CursorPointerInfoViewController *infoViewController = [[CursorPointerInfoViewController alloc] init];
+            self.currentPopoverController = [[UIPopoverController alloc] initWithContentViewController:infoViewController];
             self.currentPopoverController.popoverContentSize = infoViewController.view.frame.size;
         }        
     }
@@ -353,12 +347,11 @@ static NSArray *s_folders = nil;
     
     self.title = NSLocalizedString(@"Cursor", nil);
     
-    [s_timeScales release];
-    s_timeScales = [[NSArray arrayWithObjects:[NSLocalizedString(@"Year", nil) uppercaseString],
+    s_timeScales = [NSArray arrayWithObjects:[NSLocalizedString(@"Year", nil) uppercaseString],
                      [NSLocalizedString(@"Month", nil) uppercaseString],
                      [NSLocalizedString(@"Week", nil) uppercaseString],
                      [NSLocalizedString(@"Day", nil) uppercaseString],
-                     nil] retain];
+                     nil];
     
     [self.weekDaysCursor reloadData];
     [self.timeScalesCursor reloadData];

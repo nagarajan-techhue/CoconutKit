@@ -103,7 +103,7 @@
 /**
  * The stack controller delegate
  */
-@property (nonatomic, assign) id<HLSStackControllerDelegate> delegate;
+@property (nonatomic, weak) id<HLSStackControllerDelegate> delegate;
 
 /**
  * Return the view controller at the bottom

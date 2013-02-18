@@ -97,6 +97,8 @@ static NSString* digest(NSString *string, unsigned char *(*cc_digest)(const void
 
 - (NSString *)urlEncodedStringUsingEncoding:(NSStringEncoding)encoding
 {
+    // FIXME: ARC
+#if 0
     CFStringEncoding cfEncoding = CFStringConvertNSStringEncodingToEncoding(encoding);
     NSString *result = NSMakeCollectable(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, 
                                                                                  (CFStringRef)self, 
@@ -104,6 +106,8 @@ static NSString* digest(NSString *string, unsigned char *(*cc_digest)(const void
                                                                                  CFSTR("!*'();:@&=+$,/?%#[]"), 
                                                                                  cfEncoding));
     return [result autorelease];
+#endif
+    return nil;
 }
 
 #pragma mark Hash digests

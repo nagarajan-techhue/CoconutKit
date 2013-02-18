@@ -61,7 +61,7 @@ static UIScrollView *s_scrollView = nil;
 
 @interface HLSTextField ()
 
-@property (nonatomic, retain) HLSTextFieldTouchDetector *touchDetector;
+@property (nonatomic, strong) HLSTextFieldTouchDetector *touchDetector;
 
 @end
 
@@ -89,16 +89,10 @@ static UIScrollView *s_scrollView = nil;
 {
     self.minVisibilityDistance = kTextFieldMinVisibilityDistance;
     
-    self.touchDetector = [[[HLSTextFieldTouchDetector alloc] initWithTextField:self] autorelease];
+    self.touchDetector = [[HLSTextFieldTouchDetector alloc] initWithTextField:self];
     super.delegate = self.touchDetector;
 }
 
-- (void)dealloc
-{
-    self.touchDetector = nil;
-    
-    [super dealloc];
-}
 
 #pragma mark Accessors and mutators
 

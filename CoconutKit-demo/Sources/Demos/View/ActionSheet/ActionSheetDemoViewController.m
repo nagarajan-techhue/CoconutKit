@@ -10,8 +10,8 @@
 
 @interface ActionSheetDemoViewController ()
 
-@property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
-@property (nonatomic, retain) IBOutlet UILabel *choiceLabel;
+@property (nonatomic, weak) IBOutlet UIToolbar *toolbar;
+@property (nonatomic, weak) IBOutlet UILabel *choiceLabel;
 
 @end
 
@@ -56,7 +56,7 @@
 
 - (HLSActionSheet *)actionSheetForChoice
 {
-    HLSActionSheet *actionSheet = [[[HLSActionSheet alloc] init] autorelease];
+    HLSActionSheet *actionSheet = [[HLSActionSheet alloc] init];
     [actionSheet addDestructiveButtonWithTitle:NSLocalizedString(@"Reset", nil)
                                         target:self
                                         action:@selector(resetChoice:)];
@@ -81,7 +81,7 @@
 
 - (void)showSecondActionSheetFromActionSheet:(HLSActionSheet *)actionSheet
 {
-    HLSActionSheet *secondActionSheet = [[[HLSActionSheet alloc] init] autorelease];
+    HLSActionSheet *secondActionSheet = [[HLSActionSheet alloc] init];
     [secondActionSheet addButtonWithTitle:HLSLocalizedStringFromUIKit(@"Yes") target:nil action:NULL];
     [secondActionSheet addButtonWithTitle:[HLSLocalizedStringFromUIKit(@"No") capitalizedString] target:nil action:NULL];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {

@@ -51,9 +51,9 @@
     [super localize];
     
     // Installs a test button to see the benefits of a toolbar tint color
-    UIBarButtonItem *actionBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+    UIBarButtonItem *actionBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                                           target:nil 
-                                                                                          action:NULL] autorelease];
+                                                                                          action:NULL];
     self.toolbarItems = [NSArray arrayWithObject:actionBarButtonItem];
     
     self.title = NSLocalizedString(@"Skinning", nil);

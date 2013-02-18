@@ -5,15 +5,15 @@
 
 
 extern const struct PersonAttributes {
-	 NSString *birthdate;
-	 NSString *city;
-	 NSString *country;
-	 NSString *email;
-	 NSString *firstName;
-	 NSString *lastName;
-	 NSString *nbrChildren;
-	 NSString *state;
-	 NSString *street;
+	__unsafe_unretained NSString *birthdate;
+	__unsafe_unretained NSString *city;
+	__unsafe_unretained NSString *country;
+	__unsafe_unretained NSString *email;
+	__unsafe_unretained NSString *firstName;
+	__unsafe_unretained NSString *lastName;
+	__unsafe_unretained NSString *nbrChildren;
+	__unsafe_unretained NSString *state;
+	__unsafe_unretained NSString *street;
 } PersonAttributes;
 
 extern const struct PersonRelationships {
@@ -46,7 +46,7 @@ extern const struct PersonFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSDate* birthdate;
+@property (nonatomic, strong) NSDate* birthdate;
 
 
 
@@ -56,7 +56,7 @@ extern const struct PersonFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* city;
+@property (nonatomic, strong) NSString* city;
 
 
 
@@ -66,7 +66,7 @@ extern const struct PersonFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* country;
+@property (nonatomic, strong) NSString* country;
 
 
 
@@ -76,7 +76,7 @@ extern const struct PersonFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* email;
+@property (nonatomic, strong) NSString* email;
 
 
 
@@ -86,7 +86,7 @@ extern const struct PersonFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* firstName;
+@property (nonatomic, strong) NSString* firstName;
 
 
 
@@ -96,7 +96,7 @@ extern const struct PersonFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* lastName;
+@property (nonatomic, strong) NSString* lastName;
 
 
 
@@ -106,7 +106,7 @@ extern const struct PersonFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* nbrChildren;
+@property (nonatomic, strong) NSNumber* nbrChildren;
 
 
 
@@ -120,7 +120,7 @@ extern const struct PersonFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* state;
+@property (nonatomic, strong) NSString* state;
 
 
 
@@ -130,7 +130,7 @@ extern const struct PersonFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* street;
+@property (nonatomic, strong) NSString* street;
 
 
 
