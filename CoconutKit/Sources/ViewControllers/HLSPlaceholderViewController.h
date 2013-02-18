@@ -217,6 +217,6 @@
 /**
  * Return the placeholder view controller a view controller is inserted in, or nil if none
  */
-@property (nonatomic, readonly, assign) HLSPlaceholderViewController *placeholderViewController;
+@property (nonatomic, readonly, weak) HLSPlaceholderViewController *placeholderViewController;
 
 @end

@@ -71,12 +71,9 @@ static void swizzled_UILabel__setBackgroundColor_Imp(UILabel *self, SEL _cmd, UI
 
 + (void)load
 {
-    // FIXME: ARC
-#if 0
     s_UILabel__dealloc_Imp = (void (*)(id, SEL))HLSSwizzleSelector(self,
-                                                                   @selector(dealloc), 
+                                                                   sel_getUid("dealloc"),
                                                                    (IMP)swizzled_UILabel__dealloc_Imp);
-#endif
     s_UILabel__awakeFromNib_Imp = (void (*)(id, SEL))HLSSwizzleSelector(self,
                                                                         @selector(awakeFromNib),
                                                                         (IMP)swizzled_UILabel__awakeFromNib_Imp);

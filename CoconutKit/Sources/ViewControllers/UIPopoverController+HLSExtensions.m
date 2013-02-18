@@ -38,12 +38,9 @@ static void swizzled_UIPopoverController__setContentViewController_animated_Imp(
     s_UIPopoverController__initWithContentViewController_Imp = (id (*)(id, SEL, id))HLSSwizzleSelector(self,
                                                                                                        @selector(initWithContentViewController:),
                                                                                                        (IMP)swizzled_UIPopoverController__initWithContentViewController_Imp);
-    // FIXME: ARC
-#if 0
     s_UIPopoverController__dealloc_Imp = (void (*)(id, SEL))HLSSwizzleSelector(self,
-                                                                               @selector(dealloc),
+                                                                               sel_getUid("dealloc"),
                                                                                (IMP)swizzled_UIPopoverController__dealloc_Imp);
-#endif
     s_UIPopoverController__setContentViewController_animated_Imp = (void (*)(id, SEL, id, BOOL))HLSSwizzleSelector(self,
                                                                                                                    @selector(setContentViewController:animated:),
                                                                                                                    (IMP)swizzled_UIPopoverController__setContentViewController_animated_Imp);

@@ -319,6 +319,6 @@
 /**
  * Return the stack controller the view controller is inserted in, or nil if none.
  */
-@property (nonatomic, readonly, assign) HLSStackController *stackController;
+@property (nonatomic, readonly, weak) HLSStackController *stackController;
 
 @end

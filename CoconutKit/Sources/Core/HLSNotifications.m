@@ -19,16 +19,12 @@
  *
  * Designated initializer: -initWithObject:forNotificationName:
  */
-@interface NotificationSender : NSObject {
-@private
-    NSString *_notificationName;
-    __unsafe_unretained id _object;
-}
+@interface NotificationSender : NSObject
 
 - (id)initWithNotificationName:(NSString *)notificationName forObject:(id)object;
 
 @property (nonatomic, strong) NSString *notificationName;
-@property (nonatomic, assign) id object;
+@property (nonatomic, weak) id object;
 
 @end
 
