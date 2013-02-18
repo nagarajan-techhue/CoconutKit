@@ -61,20 +61,6 @@ typedef enum {
     return self;
 }
 
-
-- (void)releaseViews
-{
-    [super releaseViews];
-    
-    self.heavyButton = nil;
-    self.transitionPickerView = nil;
-    self.inTabBarControllerSwitch = nil;
-    self.inNavigationControllerSwitch = nil;
-    self.leftPlaceholderSwitch = nil;
-    self.rightPlaceholderSwitch = nil;
-    self.autorotationModeSegmentedControl = nil;
-}
-
 #pragma mark View lifecycle
 
 - (void)viewDidLoad

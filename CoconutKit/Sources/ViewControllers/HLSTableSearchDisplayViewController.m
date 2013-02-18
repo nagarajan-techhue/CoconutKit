@@ -29,17 +29,6 @@ static const CGFloat kSearchBarStandardHeight = 44.f;
     BOOL _firstLoad;
 }
 
-#pragma mark Object creation and destruction
-
-
-- (void)releaseViews
-{
-    [super releaseViews];
-    
-    self.searchBar = nil;
-    self.tableView = nil;
-}
-
 #pragma mark Accessors and mutators
 
 - (UITableView *)searchResultsTableView

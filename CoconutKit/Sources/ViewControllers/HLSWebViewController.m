@@ -31,7 +31,7 @@
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *goForwardBarButtonItem;
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *refreshBarButtonItem;
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *actionBarButtonItem;
-@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 
 @end
 
@@ -47,18 +47,10 @@
     return self;
 }
 
-
 - (void)releaseViews
 {
     [super releaseViews];
     
-    self.webView = nil;
-    self.toolbar = nil;
-    self.goBackBarButtonItem = nil;
-    self.goForwardBarButtonItem = nil;
-    self.refreshBarButtonItem = nil;
-    self.actionBarButtonItem = nil;
-    self.activityIndicator = nil;
     self.refreshImage = nil;
 }
 
@@ -130,7 +122,7 @@
     self.webView.frame = (CGRect){CGPointZero, CGSizeMake(CGRectGetWidth(self.view.bounds), CGRectGetMinY(self.toolbar.frame))};
     
     // Center UI elements accordingly
-    self.activityIndicator.center = CGPointMake(self.activityIndicator.center.x, CGRectGetMidY(self.toolbar.frame));
+    self.activityIndicatorView.center = CGPointMake(self.activityIndicatorView.center.x, CGRectGetMidY(self.toolbar.frame));
 }
 
 - (void)updateInterface
@@ -166,7 +158,7 @@
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
     [[HLSNotificationManager sharedNotificationManager] notifyBeginNetworkActivity];
-    [self.activityIndicator startAnimating];
+    [self.activityIndicatorView startAnimating];
     
     [self updateInterface];
 }
@@ -174,7 +166,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     [[HLSNotificationManager sharedNotificationManager] notifyEndNetworkActivity];
-    [self.activityIndicator stopAnimating];
+    [self.activityIndicatorView stopAnimating];
     
     // A new page has been displayed. Remember its URL
     self.currentURL = [self.webView.request URL];
@@ -185,7 +177,7 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     [[HLSNotificationManager sharedNotificationManager] notifyEndNetworkActivity];
-    [self.activityIndicator stopAnimating];
+    [self.activityIndicatorView stopAnimating];
     
     [self updateInterface];
     

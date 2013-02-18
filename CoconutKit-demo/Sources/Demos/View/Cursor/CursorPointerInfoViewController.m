@@ -10,15 +10,6 @@
 
 @implementation CursorPointerInfoViewController
 
-#pragma mark Object creation and destruction
-
-- (void)releaseViews
-{
-    [super releaseViews];
-    
-    self.valueLabel = nil;
-}
-
 #pragma mark Orientation management
 
 - (NSUInteger)supportedInterfaceOrientations

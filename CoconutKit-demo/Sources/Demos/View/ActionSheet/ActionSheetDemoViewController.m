@@ -17,16 +17,6 @@
 
 @implementation ActionSheetDemoViewController
 
-#pragma mark Object creation and destruction
-
-- (void)releaseViews
-{
-    [super releaseViews];
-    
-    self.toolbar = nil;
-    self.choiceLabel = nil;
-}
-
 #pragma mark View lifecycle
 
 - (void)viewDidLoad

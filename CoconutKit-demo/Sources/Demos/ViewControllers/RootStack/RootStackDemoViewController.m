@@ -34,22 +34,10 @@
 {
     [super releaseViews];
     
-    self.backBarButtonItem = nil;
-    self.actionSheetBarButtonItem = nil;
-    self.popButton = nil;
-    
     // Avoid a crash when popping a view controller in the root stack demo in the iOS simulator (no crash on the device). This
     // seems related to the accessibility inspector feature of the iOS simulator
     self.transitionPickerView.dataSource = nil;
-    self.transitionPickerView.delegate = nil;
-    
-    self.transitionPickerView = nil;
-    self.animatedSwitch = nil;
-    self.autorotationModeSegmentedControl = nil;
-    self.portraitSwitch = nil;
-    self.landscapeRightSwitch = nil;
-    self.landscapeLeftSwitch = nil;
-    self.portraitUpsideDownSwitch = nil;
+    self.transitionPickerView.delegate = nil;    
 }
 
 #pragma mark View lifecycle

@@ -20,18 +20,6 @@
 
 @implementation ExpandingSearchBarDemoViewController
 
-#pragma mark Object creation and destruction
-
-- (void)releaseViews
-{
-    [super releaseViews];
-    
-    self.searchBar1 = nil;
-    self.searchBar2 = nil;
-    self.searchBar3 = nil;
-    self.animatedSwitch = nil;
-}
-
 #pragma mark View lifecycle
 
 - (void)viewDidLoad

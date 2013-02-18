@@ -19,18 +19,6 @@
 
 @implementation TextFieldsDemoViewController
 
-#pragma mark Object creation and destruction
-
-- (void)releaseViews
-{
-    [super releaseViews];
-    
-    self.textField1 = nil;
-    self.textField2 = nil;
-    self.textField3 = nil;
-    self.textField4 = nil;
-}
-
 #pragma mark View lifecycle
 
 - (void)viewDidLoad

@@ -46,29 +46,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    self.person = nil;
-    
-}
-
-- (void)releaseViews
-{
-    [super releaseViews];
-    
-    self.firstNameTextField = nil;
-    self.firstNameErrorLabel = nil;
-    self.lastNameTextField = nil;
-    self.lastNameErrorLabel = nil;
-    self.emailTextField = nil;
-    self.emailErrorLabel = nil;
-    self.birthdateLabel = nil;
-    self.birthdateTextField = nil;
-    self.birthdateErrorLabel = nil;
-    self.nbrChildrenTextField = nil;
-    self.nbrChildrenErrorLabel = nil;
-}
-
 #pragma mark Accessors and mutators
 
 - (void)setPerson:(Person *)person
