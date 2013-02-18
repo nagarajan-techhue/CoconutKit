@@ -47,13 +47,6 @@
     return nil;
 }
 
-- (void)dealloc
-{
-    self.textField = nil;
-    self.delegate = nil;
-    
-}
-
 #pragma mark UITextFieldDelegate protocol implementation
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField

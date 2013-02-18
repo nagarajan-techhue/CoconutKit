@@ -47,7 +47,6 @@ static NSString *stringForLabelRepresentation(HLSLabelRepresentation representat
     return nil;
 }
 
-
 #pragma mark Parsing text
 
 - (void)parseText:(NSString *)text

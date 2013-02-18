@@ -77,10 +77,6 @@ static const NSInteger kSlideshowNoIndex = -1;
 - (void)dealloc
 {
     [self stop];
-    
-    self.imageNamesOrPaths = nil;
-    self.delegate = nil;
-    
 }
 
 #pragma mark Accessors and mutators

@@ -45,11 +45,6 @@ const NSUInteger kProgressStepsCounterThreshold = 50;
     return self;
 }
 
-- (void)dealloc
-{
-    self.taskGroup = nil;
-}
-
 #pragma mark Accessors and mutators
 
 - (Class)operationClass

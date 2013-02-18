@@ -33,7 +33,6 @@
     return self;
 }
 
-
 #pragma mark Managing the animation
 
 - (void)addViewAnimation:(HLSViewAnimation *)viewAnimation forView:(UIView *)view

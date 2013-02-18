@@ -9,8 +9,4 @@
 #import "CursorSelectedFolderView.h"
 
 @implementation CursorSelectedFolderView
-
-#pragma mark Object creation and destruction
-
-
 @end

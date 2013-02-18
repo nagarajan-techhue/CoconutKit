@@ -32,7 +32,6 @@
     return self;
 }
 
-
 #pragma mark UITextFieldDelegate protocol implementation
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField

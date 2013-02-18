@@ -9,8 +9,4 @@
 #import "FooterView.h"
 
 @implementation FooterView
-
-#pragma mark Object creation and destruction
-
-
 @end

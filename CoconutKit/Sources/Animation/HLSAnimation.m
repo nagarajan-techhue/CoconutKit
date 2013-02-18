@@ -120,8 +120,6 @@ static NSString * const kDelayLayerAnimationTag = @"HLSDelayLayerAnimationStep";
                                                   object:nil];
     
     [self cancel];
-    
-    
 }
 
 #pragma mark Accessors and mutators

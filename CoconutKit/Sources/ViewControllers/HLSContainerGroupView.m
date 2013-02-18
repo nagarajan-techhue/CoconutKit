@@ -57,7 +57,6 @@
     return nil;
 }
 
-
 #pragma mark Accessors and mutators
 
 - (UIView *)frontContentView

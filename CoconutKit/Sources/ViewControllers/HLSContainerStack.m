@@ -74,14 +74,6 @@ const NSUInteger HLSContainerStackUnlimitedCapacity = NSUIntegerMax;
     return nil;
 }
 
-- (void)dealloc
-{
-    self.containerViewController = nil;
-    self.containerView = nil;
-    self.delegate = nil;
-
-}
-
 #pragma mark Accessors and mutators
 
 - (void)setContainerView:(UIView *)containerView

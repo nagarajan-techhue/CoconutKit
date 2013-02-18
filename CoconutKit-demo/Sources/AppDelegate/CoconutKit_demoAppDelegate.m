@@ -27,9 +27,6 @@ HLSEnableApplicationPreloading();
 
 @implementation CoconutKit_demoAppDelegate
 
-#pragma mark Object construction and destruction
-
-
 #pragma mark Accessors and mutators
 
 @synthesize window = _window;

@@ -48,7 +48,6 @@
     return self;
 }
 
-
 #pragma mark Accessors and mutators
 
 - (void)setDuration:(NSTimeInterval)duration

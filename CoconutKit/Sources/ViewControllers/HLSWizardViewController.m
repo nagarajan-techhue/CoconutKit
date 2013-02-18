@@ -52,11 +52,6 @@ static const NSInteger kWizardViewControllerNoPage = -1;
     _wizardTransitionStyle = HLSWizardTransitionStyleNone;
 }
 
-- (void)dealloc
-{
-    self.delegate = nil;
-}
-
 #pragma mark View lifecycle management
 
 - (void)viewDidLoad

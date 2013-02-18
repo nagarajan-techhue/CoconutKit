@@ -63,7 +63,6 @@ const NSUInteger kFullProgressStepsCounterThreshold = 50;
     return self;
 }
 
-
 #pragma mark Accessors and mutators
 
 - (NSSet *)tasks

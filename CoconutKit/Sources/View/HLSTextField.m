@@ -93,7 +93,6 @@ static UIScrollView *s_scrollView = nil;
     super.delegate = self.touchDetector;
 }
 
-
 #pragma mark Accessors and mutators
 
 - (void)setTextFieldMinVisibilityDistance:(CGFloat)minVisibilityDistance

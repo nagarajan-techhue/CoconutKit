@@ -102,9 +102,6 @@ static Class subclass_class(id object, SEL _cmd);
         Class superclass = class_getSuperclass(object_getClass(self.object));
         object_setClass(self.object, superclass);
     }
-    
-    self.object = nil;
-    
 }
 
 #pragma mark Optional cleanup

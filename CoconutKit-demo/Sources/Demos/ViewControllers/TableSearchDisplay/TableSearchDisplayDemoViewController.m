@@ -72,7 +72,6 @@ typedef enum {
     return self;
 }
 
-
 #pragma mark UISearchDisplayDelegate protocol implementation
 
 - (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller

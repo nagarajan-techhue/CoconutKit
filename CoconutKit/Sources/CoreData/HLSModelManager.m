@@ -256,7 +256,6 @@
     return self;
 }
 
-
 #pragma mark Initialization
 
 - (NSManagedObjectModel *)managedObjectModelFromModelFileName:(NSString *)modelFileName inBundle:(NSBundle *)bundle

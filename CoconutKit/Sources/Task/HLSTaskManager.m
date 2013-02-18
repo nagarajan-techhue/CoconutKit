@@ -58,7 +58,6 @@
     return self;
 }
 
-
 #pragma mark Accessors and mutators
 
 - (void)setMaxConcurrentTaskCount:(NSInteger)count

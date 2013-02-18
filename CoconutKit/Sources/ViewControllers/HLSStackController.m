@@ -92,12 +92,6 @@
     }
 }
 
-- (void)dealloc
-{
-    self.delegate = nil;
-    
-}
-
 - (void)releaseViews
 {
     [super releaseViews];

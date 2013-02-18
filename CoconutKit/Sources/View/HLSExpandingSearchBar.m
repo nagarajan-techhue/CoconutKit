@@ -48,12 +48,6 @@ static const CGFloat kSearchBarStandardHeight = 44.f;
     return self;
 }
 
-- (void)dealloc
-{
-    self.delegate = nil;
-
-}
-
 - (void)hlsExpandingSearchBarInit
 {
     self.backgroundColor = [UIColor clearColor];

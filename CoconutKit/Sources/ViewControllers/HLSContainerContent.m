@@ -196,10 +196,7 @@ static BOOL iOS4_UIViewController__isMovingFromParentViewController_Imp(UIViewCo
     //             so that the view controller reference count is correctly decreased
     if ([self.viewController respondsToSelector:@selector(removeFromParentViewController)]) {
         [self.viewController removeFromParentViewController];
-    }
-    
-    self.containerViewController = nil;
-    
+    }   
 }
 
 #pragma mark Accessors and mutators

@@ -31,12 +31,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    self.delegate = nil;
-
-}
-
 #pragma mark Accessors and mutators
 
 - (void)setFrame:(CGRect)frame

@@ -42,12 +42,6 @@
     return nil;
 }
 
-- (void)dealloc
-{
-    self.taskManager = nil;
-    self.task = nil;
-}
-
 #pragma mark Thread main function
 
 - (void)main

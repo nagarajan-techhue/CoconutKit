@@ -10,9 +10,6 @@
 
 @implementation XibTableViewCell
 
-#pragma mark Object creation and destruction
-
-
 #pragma mark Cell customisation
 
 - (void)awakeFromNib

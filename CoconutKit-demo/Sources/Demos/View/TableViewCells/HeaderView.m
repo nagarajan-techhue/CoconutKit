@@ -9,8 +9,4 @@
 #import "HeaderView.h"
 
 @implementation HeaderView
-
-#pragma mark Object creation and destruction
-
-
 @end

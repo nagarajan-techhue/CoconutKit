@@ -55,7 +55,6 @@ static NSString * const kLayerCameraZPositionForSublayersKey = @"HLSLayerCameraZ
     return self;
 }
 
-
 #pragma mark Managing the animation
 
 - (void)addLayerAnimation:(HLSLayerAnimation *)layerAnimation forLayer:(CALayer *)layer

@@ -9,8 +9,4 @@
 #import "CursorCustomPointerView.h"
 
 @implementation CursorCustomPointerView
-
-#pragma mark Object creation and destruction
-
-
 @end

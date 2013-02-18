@@ -86,12 +86,6 @@ destructiveButtonTitle:(NSString *)destructiveButtonTitle
     return nil;
 }
 
-- (void)dealloc
-{
-    self.realDelegate = nil;
-    
-}
-
 #pragma mark Accessors and mutators
 
 - (NSInteger)addCancelButtonWithTitle:(NSString *)cancelButtonTitle 

@@ -57,15 +57,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    
-    // Very special case here. Cannot use the property since it cannot change the pointer view once set!
-    
-    self.dataSource = nil;
-    
-}
-
 - (void)hlsCursorInit
 {
     self.pointerViewTopLeftOffset = CGSizeMake(-10.f, -10.f);

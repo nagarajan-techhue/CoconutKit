@@ -91,12 +91,6 @@ static BOOL swizzled_UIApplicationDelegate__application_didFinishLaunchingWithOp
     return nil;
 }
 
-- (void)dealloc
-{
-    self.application = nil;
-
-}
-
 #pragma mark Pre-loading
 
 - (void)preload

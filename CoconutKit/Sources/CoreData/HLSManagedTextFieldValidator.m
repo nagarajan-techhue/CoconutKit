@@ -78,9 +78,6 @@ extern void (*UITextField__setText_Imp)(id, SEL, id);
 - (void)dealloc
 {
     [self.managedObject removeObserver:self forKeyPath:self.fieldName];
-    
-    self.validationDelegate = nil;
-    
 }
 
 #pragma mark UITextFieldDelegate protocol implementation
