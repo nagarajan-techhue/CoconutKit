@@ -35,7 +35,6 @@
 {
     if ((self = [super init])) {
         self.completionBlock = completionBlock;
-        
         self.childConnections = [NSMutableArray array];
     }
     return self;
@@ -100,16 +99,6 @@
         [childConnection cancel];
     }
 }
-
-#pragma mark HLSConnectionAbstract protocol implementation
-
-- (void)startConnectionWithRunLoopModes:(NSSet *)runLoopModes
-{
-    self.completionBlock(self, nil, nil);
-}
-
-- (void)cancelConnection
-{}
 
 #pragma mark Child connections
 
