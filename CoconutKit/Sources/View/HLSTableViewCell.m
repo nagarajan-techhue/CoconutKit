@@ -76,30 +76,39 @@ static NSMutableDictionary *s_classNameToSizeMap = nil;
 
 #pragma mark Cell customisation
 
+// TODO: Could be moved to a UITableViewCell category
+
 - (void)setBackgroundWithImageNamed:(NSString *)backgroundImageName
     selectedBackgroundWithImageName:(NSString *)selectedBackgroundImageName
 {
-    if (backgroundImageName) {
-        UIImage *backgroundImage = [UIImage imageNamed:backgroundImageName];
-        if (backgroundImage) {
-            self.backgroundView = [[[UIImageView alloc] initWithImage:backgroundImage] autorelease];
-        }
-        else {
-            HLSLoggerWarn(@"The image %@ does not exist", backgroundImageName);
-            self.backgroundView = nil;
-        }
+    UIImage *backgroundImage = [UIImage imageNamed:backgroundImageName];
+    if (! backgroundImage) {
+        HLSLoggerWarn(@"The image %@ does not exist", backgroundImageName);
     }
     
-    if (selectedBackgroundImageName) {
-        UIImage *selectedBackgroundImage = [UIImage imageNamed:selectedBackgroundImageName];
-        if (selectedBackgroundImage) {
-            self.selectedBackgroundView = [[[UIImageView alloc] initWithImage:selectedBackgroundImage] autorelease];
-        }
-        else {
-            HLSLoggerWarn(@"The image %@ does not exist", selectedBackgroundImage);
-            self.selectedBackgroundView = nil;
-        }
+    UIImage *selectedBackgroundImage = [UIImage imageNamed:selectedBackgroundImageName];
+    if (! selectedBackgroundImage) {
+        HLSLoggerWarn(@"The image %@ does not exist", selectedBackgroundImage);
+    }
+    
+    [self setBackgroundImage:backgroundImage selectedBackgroundImage:selectedBackgroundImage];
+}
+
+- (void)setBackgroundImage:(UIImage *)backgroundImage
+   selectedBackgroundImage:(UIImage *)selectedBackgroundImage
+{
+    if (backgroundImage) {
+        self.backgroundView = [[[UIImageView alloc] initWithImage:backgroundImage] autorelease];
+    }
+    else {
+        self.backgroundView = nil;
+    }
+    
+    if (selectedBackgroundImage) {
         self.selectedBackgroundView = [[[UIImageView alloc] initWithImage:selectedBackgroundImage] autorelease];
+    }
+    else {
+        self.selectedBackgroundView = nil;
     }
 }
 

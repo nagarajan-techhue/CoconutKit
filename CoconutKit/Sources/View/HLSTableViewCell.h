@@ -54,14 +54,14 @@
  * you want to use Interface Builder as much as possible when designing your cells. Instead, I recommend setting 
  * cell backgrounds as follows:
  *   - if you use Interface Builder: Define the cell layout, and set its selection style to "Blue". Then call the
- *     method setBackgroundWithImageNamed:selectedBackgroundWithImageName: in the awakeFromNib method of your cell
- *     implementation, passing it the images you want to use
+ *     one of the methods below in the awakeFromNib method of your cell implementation, passing it the images you want 
+ *     to use
  *   - if you are creating the cell completely in code: Set the selection style to UITableViewCellSelectionStyleBlue
- *     and call the method setBackgroundWithImageNamed:selectedBackgroundWithImageName: in the initWithStyle:reuseIdentifier:, 
- *     method of your cell implementation, passing it the images you want to use
+ *     and call one of the methods below in the initWithStyle:reuseIdentifier: method of your cell implementation, 
+ *     passing it the images you want to use
  * Setting a selection style is important since otherwise the selected background image would not be displayed
- * when the cell is highlighted / selected. Also note that, unlike buttons, the image of the highlighted and
- * selected states is always the same.
+ * when the cell is highlighted / selected. Also note that, unlike buttons, the images of the highlighted and
+ * selected states are always the same.
  *
  * If you are curious, here is a way to define both the normal and selected state images completely in Interface
  * Builder (warning: ugliness inside):
@@ -74,12 +74,22 @@
  *     your cell), set its color to clear color, and bind it to the selectedBackgroundView property. This will disable
  *     the blue view which automatically gets added when setting the selection style to "Blue". 
  * IMHO, this is too tricky for such a trivial need, and I strongly suggest customizing cell images in awakeFromNib
- * using setBackgroundWithImageNamed:selectedBackgroundWithImageName:
+ * using one of the methods below
  *
  * Not meant to be overridden
  */
+
+/**
+ * Set cell backgrounds using images from the main bundle
+ */
 - (void)setBackgroundWithImageNamed:(NSString *)backgroundImageName
     selectedBackgroundWithImageName:(NSString *)selectedBackgroundImageName;
+
+/**
+ * Set cell backgrounds using arbitrary images
+ */
+- (void)setBackgroundImage:(UIImage *)backgroundImage
+   selectedBackgroundImage:(UIImage *)selectedBackgroundImage;
 
 /**
  * Returns the cell dimensions
