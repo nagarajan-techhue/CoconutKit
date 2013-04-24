@@ -25,4 +25,12 @@
  */
 @property (nonatomic, readonly, retain) NSURLRequest *request;
 
+/**
+ * A file URL pointing to an html file that is displayed when a connection error occurs
+ *
+ * If an html element with id="localizedErrorDescription" is present, its content is replaced with a localized description of the error that occured
+ * A default template which looks like the Safari error page is provided.
+ */
+@property (nonatomic, retain) NSURL *errorTemplateURL;
+
 @end

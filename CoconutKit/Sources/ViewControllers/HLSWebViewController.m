@@ -22,6 +22,7 @@
 
 @property (nonatomic, retain) NSURLRequest *request;
 @property (nonatomic, retain) NSURL *currentURL;
+@property (nonatomic, retain) NSError *currentError;
 
 @property (nonatomic, retain) UIImage *refreshImage;
 
@@ -43,6 +44,7 @@
 {
     if ((self = [super initWithBundle:[NSBundle coconutKitBundle]])) {
         self.request = request;
+        self.errorTemplateURL = [[NSBundle coconutKitBundle] URLForResource:@"HLSWebViewControllerErrorTemplate" withExtension:@"html"];
     }
     return self;
 }
@@ -161,6 +163,20 @@
     }
 }
 
+- (void) setErrorTemplateURL:(NSURL *)errorTemplateURL
+{
+    if (_errorTemplateURL == errorTemplateURL) {
+        return;
+    }
+    
+    if (![errorTemplateURL isFileURL]) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"The error template URL must be a file URL." userInfo:nil];
+    }
+    
+    [_errorTemplateURL release];
+    _errorTemplateURL = [errorTemplateURL retain];
+}
+
 #pragma mark MFMailComposeViewControllerDelegate protocol implementation
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
@@ -187,6 +203,14 @@
     self.currentURL = [self.webView.request URL];
     
     [self updateInterface];
+    
+    if (self.currentError) {
+        NSString *escapedErrorDescription = [[self.currentError localizedDescription] stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
+        NSString *replaceErrorJavaScript = [NSString stringWithFormat:@"document.getElementById('localizedErrorDescription').innerHTML = '%@'", escapedErrorDescription];
+        [webView stringByEvaluatingJavaScriptFromString:replaceErrorJavaScript];
+    }
+    
+    self.currentError = nil;
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
@@ -194,17 +218,12 @@
     [[HLSNotificationManager sharedNotificationManager] notifyEndNetworkActivity];
     [self.activityIndicator stopAnimating];
     
+    self.currentError = error;
+    
     [self updateInterface];
     
-    // We can also encounter other types of errors here (e.g. if a user clicks on two links consecutively on the same page. 
-    // The first request is cancelled and ends with NSURLErrorCancelled)
-    if ([error hasCode:NSURLErrorNotConnectedToInternet withinDomain:NSURLErrorDomain]) {
-        UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"Cannot Open Page", @"Localizable", [NSBundle coconutKitBundle], nil)
-                                                             message:NSLocalizedStringFromTableInBundle(@"No Internet connection is available", @"Localizable", [NSBundle coconutKitBundle], nil)
-                                                            delegate:nil 
-                                                   cancelButtonTitle:HLSLocalizedStringFromUIKit(@"OK") 
-                                                   otherButtonTitles:nil] autorelease];
-        [alertView show];
+    if (![error hasCode:NSURLErrorCancelled withinDomain:NSURLErrorDomain]) {
+        [webView loadRequest:[NSURLRequest requestWithURL:self.errorTemplateURL]];
     }
 }
 
@@ -227,7 +246,7 @@
     NSURL *webViewURL = [self.webView.request URL];
     
     // Reload the currently displayed page (if any)
-    if ([[webViewURL absoluteString] isFilled]) {
+    if ([[webViewURL absoluteString] isFilled] && ![webViewURL.path isEqualToString:self.errorTemplateURL.path]) {
         [self.webView loadRequest:self.webView.request];
     }
     // Reload the start page
