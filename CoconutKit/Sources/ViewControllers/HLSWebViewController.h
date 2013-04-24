@@ -30,6 +30,8 @@
  *
  * If an html element with id="localizedErrorDescription" is present, its content is replaced with a localized description of the error that occured
  * A default template which looks like the Safari error page is provided.
+ *
+ * This property must be set before the view is loaded.
  */
 @property (nonatomic, retain) NSURL *errorTemplateURL;
 

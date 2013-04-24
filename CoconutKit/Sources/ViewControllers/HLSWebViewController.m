@@ -22,11 +22,11 @@
 
 @property (nonatomic, retain) NSURLRequest *request;
 @property (nonatomic, retain) NSURL *currentURL;
-@property (nonatomic, retain) NSError *currentError;
 
 @property (nonatomic, retain) UIImage *refreshImage;
 
 @property (nonatomic, retain) IBOutlet UIWebView *webView;
+@property (nonatomic, retain) IBOutlet UIWebView *errorWebView;
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *goBackBarButtonItem;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *goForwardBarButtonItem;
@@ -82,8 +82,8 @@
     // Start with the initial URL when the view gets (re)loaded
     self.currentURL = nil;
     
-    self.webView.delegate = self;
-    [self.webView loadRequest:self.request];
+    self.errorWebView.scrollView.scrollEnabled = NO;
+    [self.errorWebView loadRequest:[NSURLRequest requestWithURL:self.errorTemplateURL]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -148,7 +148,7 @@
     self.goForwardBarButtonItem.enabled = self.webView.canGoForward;
     self.refreshBarButtonItem.enabled = ! self.webView.loading;
     self.refreshBarButtonItem.image = self.webView.loading ? nil : self.refreshImage;
-    self.actionBarButtonItem.enabled = ! self.webView.loading && self.currentURL;
+    self.actionBarButtonItem.enabled = ! self.webView.loading && self.currentURL && ! self.errorWebView.alpha > 0.f;
     
     [self updateTitle];
 }
@@ -188,6 +188,10 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
+    if (webView == self.errorWebView) {
+        return;
+    }
+    
     [[HLSNotificationManager sharedNotificationManager] notifyBeginNetworkActivity];
     [self.activityIndicator startAnimating];
     
@@ -196,6 +200,16 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    if (webView == self.errorWebView) {
+        [self.webView loadRequest:self.request];
+        return;
+    }
+    
+    [UIView animateWithDuration:0.3f animations:^{
+        self.webView.alpha = 1.f;
+        self.errorWebView.alpha = 0.f;
+    }];
+    
     [[HLSNotificationManager sharedNotificationManager] notifyEndNetworkActivity];
     [self.activityIndicator stopAnimating];
     
@@ -203,28 +217,30 @@
     self.currentURL = [self.webView.request URL];
     
     [self updateInterface];
-    
-    if (self.currentError) {
-        NSString *escapedErrorDescription = [[self.currentError localizedDescription] stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
-        NSString *replaceErrorJavaScript = [NSString stringWithFormat:@"document.getElementById('localizedErrorDescription').innerHTML = '%@'", escapedErrorDescription];
-        [webView stringByEvaluatingJavaScriptFromString:replaceErrorJavaScript];
-    }
-    
-    self.currentError = nil;
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
+    if (webView == self.errorWebView) {
+        return;
+    }
+    
+    if (![error hasCode:NSURLErrorCancelled withinDomain:NSURLErrorDomain])
+    {
+        [UIView animateWithDuration:0.3f animations:^{
+            self.webView.alpha = 0.f;
+            self.errorWebView.alpha = 1.f;
+        }];
+    }
+    
     [[HLSNotificationManager sharedNotificationManager] notifyEndNetworkActivity];
     [self.activityIndicator stopAnimating];
     
-    self.currentError = error;
+    NSString *escapedErrorDescription = [[error localizedDescription] stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
+    NSString *replaceErrorJavaScript = [NSString stringWithFormat:@"document.getElementById('localizedErrorDescription').innerHTML = '%@'", escapedErrorDescription];
+    [self.errorWebView stringByEvaluatingJavaScriptFromString:replaceErrorJavaScript];
     
     [self updateInterface];
-    
-    if (![error hasCode:NSURLErrorCancelled withinDomain:NSURLErrorDomain]) {
-        [webView loadRequest:[NSURLRequest requestWithURL:self.errorTemplateURL]];
-    }
 }
 
 #pragma mark Action callbacks
@@ -246,7 +262,7 @@
     NSURL *webViewURL = [self.webView.request URL];
     
     // Reload the currently displayed page (if any)
-    if ([[webViewURL absoluteString] isFilled] && ![webViewURL.path isEqualToString:self.errorTemplateURL.path]) {
+    if ([[webViewURL absoluteString] isFilled]) {
         [self.webView loadRequest:self.webView.request];
     }
     // Reload the start page
